@@ -1,7 +1,12 @@
 import React from 'react';
+import AuthForm from '../components/AuthForm';
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <AuthForm />
+    </div>
+  );
 };
 
 export default Home;
