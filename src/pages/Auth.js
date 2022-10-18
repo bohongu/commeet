@@ -20,17 +20,18 @@ const Auth = () => {
         return setEmail(value);
       case 'password':
         return setPassword(value);
+      default:
+        return;
     }
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    let data;
     try {
       if (newAccount) {
-        data = await createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, password);
       } else {
-        data = signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (error) {
       setError(error.message);
@@ -48,6 +49,8 @@ const Auth = () => {
         case 'github':
           provider = new GithubAuthProvider();
           break;
+        default:
+          return;
       }
       signInWithPopup(auth, provider);
     } catch (error) {}
