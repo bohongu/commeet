@@ -8,14 +8,14 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import { authActions } from './store/auth';
 
-const MyRouter = () => {
+const MyRouter = ({ userInfo }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   return (
     <Router>
       <Routes>
         {isLoggedIn ? (
           <>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home userInfo={userInfo} />} />
             <Route path="/profile" element={<Profile />} />
           </>
         ) : (
@@ -28,11 +28,13 @@ const MyRouter = () => {
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(authActions.isLogin());
+        setUserInfo(user);
       } else {
         dispatch(authActions.isLogout());
       }
@@ -40,7 +42,7 @@ const App = () => {
     });
   }, [dispatch]);
 
-  return <>{isLoading ? <MyRouter /> : '로딩'}</>;
+  return <>{isLoading ? <MyRouter userInfo={userInfo} /> : '로딩'}</>;
 };
 
 export default App;

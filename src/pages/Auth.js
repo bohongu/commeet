@@ -4,6 +4,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../Firebase';
@@ -11,6 +12,8 @@ import { auth } from '../Firebase';
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [nickname, setNickname] = useState('');
   const [newAccount, setNewAccount] = useState(false);
   const [error, setError] = useState('');
   const onChange = (event) => {
@@ -20,6 +23,10 @@ const Auth = () => {
         return setEmail(value);
       case 'password':
         return setPassword(value);
+      case 'confirm':
+        return setConfirm(value);
+      case 'nickname':
+        return setNickname(value);
       default:
         return;
     }
@@ -29,7 +36,12 @@ const Auth = () => {
     event.preventDefault();
     try {
       if (newAccount) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        if (password === confirm) {
+          await createUserWithEmailAndPassword(auth, email, password);
+          await updateProfile(auth.currentUser, { displayName: nickname });
+        } else {
+          setError('비밀번호가 일치하지 않습니다');
+        }
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
@@ -82,6 +94,30 @@ const Auth = () => {
         onChange={onChange}
         value={password}
       />
+      {newAccount && (
+        <>
+          <label htmlFor="confirm">비밀번호 확인</label>
+          <input
+            id="confirm"
+            type="password"
+            name="confirm"
+            required
+            placeholder="비밀번호 확인"
+            onChange={onChange}
+            value={confirm}
+          />
+          <label htmlFor="nickname">닉네임</label>
+          <input
+            id="nickname"
+            type="text"
+            name="nickname"
+            required
+            placeholder="닉네임"
+            onChange={onChange}
+            value={nickname}
+          />
+        </>
+      )}
       {error}
       <button>{newAccount ? '회원가입' : '로그인'}</button>
       <span onClick={toggleAccount}>
