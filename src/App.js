@@ -21,7 +21,12 @@ const App = () => {
     });
   }, [dispatch]);
 
-  return <>{isLoading ? <MyRouter /> : '로딩'}</>;
+  return (
+    <>
+      {isLoading ? <MyRouter /> : '로딩'}
+      <footer>&copy;{new Date().getFullYear()} Commeet</footer>
+    </>
+  );
 };
 
 export default App;
