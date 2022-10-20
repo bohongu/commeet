@@ -1,3 +1,4 @@
+import Modal from 'components/ui/Modal';
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,11 +15,9 @@ const Profile = () => {
     }
   };
   return (
-    <section>
-      <h3>Profile</h3>
-      <h3>프로필 수정하는 거랑 내 글 목록 등등</h3>
+    <Modal>
       <div onClick={onLogout}>로그아웃</div>
-    </section>
+    </Modal>
   );
 };
 

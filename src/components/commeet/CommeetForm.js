@@ -26,11 +26,15 @@ const CommeetForm = () => {
     event.preventDefault();
     const today = new Date();
     const date = today.toISOString().split('T')[0];
+    const recordDate = today.toLocaleString('ko-kr');
 
     await addDoc(collection(db, 'commeets'), {
       title,
       commeet,
       createdAt: date,
+      updatedAt: null,
+      recordUpdatedAt: null,
+      recordCreatedAt: recordDate,
       author: userInfo.displayName,
       authorId: userInfo.uid,
     });

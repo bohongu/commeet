@@ -1,4 +1,4 @@
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
@@ -28,7 +28,6 @@ const CommeetList = ({ commeet }) => {
     <>
       {showUpdateForm && (
         <CommeetUpdate
-          commeet={commeet}
           dbRef={dbRef}
           showSetting={showSetting}
           setShowUpdateForm={setShowUpdateForm}

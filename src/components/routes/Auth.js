@@ -29,22 +29,26 @@ const Auth = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const reg = '^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{10,}$';
+    const reg =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     try {
       if (newAccount) {
         if (password === confirm) {
-          if (!reg.match(password) || !reg.match(confirm)) {
-            setError('비밀번호는 문자, 숫자, 특수 문자 조합으로 10자 이상');
+          if (!reg.test(password) || !reg.test(confirm)) {
+            setError('비밀번호는 문자, 숫자, 특수 문자 조합으로 8자 이상');
+          } else {
+            // 회원가입 후 로그인 하는 로직
+            await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(auth.currentUser, { displayName: nickname });
           }
-          await createUserWithEmailAndPassword(auth, email, password);
-          await updateProfile(auth.currentUser, { displayName: nickname });
         } else {
           setError('비밀번호가 일치하지 않습니다');
         }
       } else {
+        // 로그인
         await signInWithEmailAndPassword(auth, email, password);
       }
-    } catch (error) {}
+    } catch {}
   };
 
   const onSocial = (event) => {

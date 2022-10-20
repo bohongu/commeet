@@ -1,10 +1,11 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { auth } from './Firebase';
 import { authActions } from './components/store/auth';
 import { userActions } from './components/store/user';
 import MyRouter from './components/routes/Router';
+import LoadingSpinner from 'components/ui/LoadingSpinner';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +24,7 @@ const App = () => {
 
   return (
     <>
-      {isLoading ? <MyRouter /> : '로딩'}
+      {isLoading ? <MyRouter /> : <LoadingSpinner />}
       <footer>&copy;{new Date().getFullYear()} Commeet</footer>
     </>
   );
