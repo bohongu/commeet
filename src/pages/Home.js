@@ -49,7 +49,6 @@ const Home = ({ userInfo }) => {
     });
     setTitle('');
     setCommeet('');
-    console.log(userInfo);
   };
 
   return (
