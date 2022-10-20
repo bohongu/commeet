@@ -1,57 +1,9 @@
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+
 import { useSelector } from 'react-redux';
 import { db } from '../../Firebase';
-import Modal from '../ui/Modal';
-
-const UpdateForm = ({ commeet, dbRef, showSetting, setShowUpdateForm }) => {
-  const [newTitle, setNewTitle] = useState('');
-  const [newCommeet, setNewCommeet] = useState('');
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case 'newTitle':
-        return setNewTitle(value);
-      case 'newCommeet':
-        return setNewCommeet(value);
-      default:
-        return;
-    }
-  };
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    await updateDoc(dbRef, {
-      title: newTitle,
-      commeet: newCommeet,
-    });
-    showSetting(false);
-    setShowUpdateForm(false);
-  };
-  return (
-    <Modal>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="newTitle">제목</label>
-        <input
-          name="newTitle"
-          id="newTitle"
-          value={newTitle}
-          onChange={onChange}
-          placeholder={commeet.title}
-        />
-        <label htmlFor="newCommeet">본문</label>
-        <input
-          name="newCommeet"
-          id="newCommeet"
-          value={newCommeet}
-          onChange={onChange}
-          placeholder={commeet.commeet}
-        />
-        <button>수정</button>
-      </form>
-    </Modal>
-  );
-};
+import CommeetUpdate from './CommeetUpdate';
 
 const CommeetList = ({ commeet }) => {
   const [setting, showSetting] = useState(false);
@@ -75,7 +27,7 @@ const CommeetList = ({ commeet }) => {
   return (
     <>
       {showUpdateForm && (
-        <UpdateForm
+        <CommeetUpdate
           commeet={commeet}
           dbRef={dbRef}
           showSetting={showSetting}

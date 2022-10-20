@@ -6,21 +6,20 @@ import { useNavigate } from 'react-router-dom/dist';
 import { db } from '../../Firebase';
 
 const CommeetForm = () => {
-  const [title, setTitle] = useState('');
-  const [commeet, setCommeet] = useState('');
+  const [inputs, setInputs] = useState({
+    title: '',
+    commeet: '',
+  });
+  const { title, commeet } = inputs;
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.userInfo);
 
   const onChange = (event) => {
     const { name, value } = event.target;
-    switch (name) {
-      case 'title':
-        return setTitle(value);
-      case 'commeet':
-        return setCommeet(value);
-      default:
-        return;
-    }
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
   };
 
   const onSubmit = async (event) => {
@@ -35,8 +34,10 @@ const CommeetForm = () => {
       author: userInfo.displayName,
       authorId: userInfo.uid,
     });
-    setTitle('');
-    setCommeet('');
+    setInputs({
+      title: '',
+      commeet: '',
+    });
     navigate('/', { replace: true });
   };
   return (

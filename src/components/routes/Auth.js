@@ -10,26 +10,21 @@ import React, { useState } from 'react';
 import { auth } from '../../Firebase';
 
 const Auth = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+    confirm: '',
+    nickname: '',
+  });
+  const { email, password, confirm, nickname } = inputs;
   const [newAccount, setNewAccount] = useState(false);
   const [error, setError] = useState('');
   const onChange = (event) => {
     const { name, value } = event.target;
-    switch (name) {
-      case 'email':
-        return setEmail(value);
-      case 'password':
-        return setPassword(value);
-      case 'confirm':
-        return setConfirm(value);
-      case 'nickname':
-        return setNickname(value);
-      default:
-        return;
-    }
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
   };
 
   const onSubmit = async (event) => {
