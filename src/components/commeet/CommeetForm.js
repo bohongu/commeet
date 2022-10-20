@@ -2,11 +2,13 @@ import { addDoc, collection } from 'firebase/firestore';
 import React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom/dist';
 import { db } from '../../Firebase';
 
 const CommeetForm = () => {
   const [title, setTitle] = useState('');
   const [commeet, setCommeet] = useState('');
+  const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.userInfo);
 
   const onChange = (event) => {
@@ -35,6 +37,7 @@ const CommeetForm = () => {
     });
     setTitle('');
     setCommeet('');
+    navigate('/', { replace: true });
   };
   return (
     <form onSubmit={onSubmit}>

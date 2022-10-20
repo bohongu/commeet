@@ -1,8 +1,8 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../../Firebase';
-import Commeet from '../commeet/Commeet';
 import CommeetForm from '../commeet/CommeetForm';
+import CommeetList from '../commeet/CommeetList';
 
 const Home = () => {
   const [commeets, setCommeets] = useState([]);
@@ -20,9 +20,8 @@ const Home = () => {
 
   return (
     <>
-      <CommeetForm />
       {commeets.map((commeet) => (
-        <Commeet key={commeet.id} commeet={commeet} />
+        <CommeetList key={commeet.id} commeet={commeet} />
       ))}
     </>
   );
