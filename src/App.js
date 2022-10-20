@@ -1,48 +1,27 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Auth from './pages/Auth';
 import { auth } from './Firebase';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import { authActions } from './store/auth';
-
-const MyRouter = ({ userInfo }) => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  return (
-    <Router>
-      <Routes>
-        {isLoggedIn ? (
-          <>
-            <Route path="/" element={<Home userInfo={userInfo} />} />
-            <Route path="/profile" element={<Profile />} />
-          </>
-        ) : (
-          <Route path="/" element={<Auth />} />
-        )}
-      </Routes>
-    </Router>
-  );
-};
+import { authActions } from './components/store/auth';
+import { userActions } from './components/store/user';
+import MyRouter from './components/pages/Router';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(authActions.isLogin());
-        setUserInfo(user);
+        dispatch(authActions.setLogin());
+        dispatch(userActions.setUserInfo(user));
       } else {
-        dispatch(authActions.isLogout());
+        dispatch(authActions.setLogout());
       }
       setIsLoading(true);
     });
   }, [dispatch]);
 
-  return <>{isLoading ? <MyRouter userInfo={userInfo} /> : '로딩'}</>;
+  return <>{isLoading ? <MyRouter /> : '로딩'}</>;
 };
 
 export default App;

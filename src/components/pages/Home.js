@@ -6,12 +6,14 @@ import {
   query,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { db } from '../Firebase';
+import { useSelector } from 'react-redux';
+import { db } from '../../Firebase';
 
-const Home = ({ userInfo }) => {
+const Home = () => {
   const [title, setTitle] = useState('');
   const [commeet, setCommeet] = useState('');
   const [commeets, setCommeets] = useState([]);
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   useEffect(() => {
     const q = query(collection(db, 'commeets'), orderBy('createdAt', 'desc'));

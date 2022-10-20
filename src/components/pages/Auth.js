@@ -7,7 +7,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import React, { useState } from 'react';
-import { auth } from '../Firebase';
+import { auth } from '../../Firebase';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
