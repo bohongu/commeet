@@ -1,8 +1,9 @@
 import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteObject, ref } from 'firebase/storage';
 import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
-import { db } from '../../Firebase';
+import { db, storage } from '../../Firebase';
 import CommeetUpdate from './CommeetUpdate';
 
 const CommeetList = ({ commeet }) => {
@@ -18,6 +19,7 @@ const CommeetList = ({ commeet }) => {
     const ok = confirm('삭제 고고?');
     if (ok) {
       await deleteDoc(dbRef);
+      await deleteObject(ref(storage, commeet.fileUrl));
     }
     showSetting(false);
   };
@@ -44,6 +46,12 @@ const CommeetList = ({ commeet }) => {
         <h3>{commeet.commeet}</h3>
         <h3>{commeet.author}</h3>
         <h3>{commeet.createdAt}</h3>
+        <img
+          src={commeet.fileUrl}
+          alt="commeet-pic"
+          width="100px"
+          height="100px"
+        />
         {owner && <div onClick={onSetting}>환경설정</div>}
         {setting && (
           <>
