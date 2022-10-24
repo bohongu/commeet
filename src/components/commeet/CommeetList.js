@@ -19,7 +19,7 @@ const CommeetList = ({ commeet }) => {
     const ok = confirm('삭제 고고?');
     if (ok) {
       await deleteDoc(dbRef);
-      await deleteObject(ref(storage, commeet.uploadedFile));
+      await deleteObject(ref(storage, commeet.fileUrl));
     }
     showSetting(false);
   };
@@ -47,7 +47,7 @@ const CommeetList = ({ commeet }) => {
         <h3>{commeet.author}</h3>
         <h3>{commeet.createdAt}</h3>
         <img
-          src={commeet.uploadedFile}
+          src={commeet.fileUrl}
           alt="commeet-pic"
           width="100px"
           height="100px"
