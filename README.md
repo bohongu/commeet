@@ -4,5 +4,5 @@
 - React Router v6
 - Redux
 - Redux-toolkit
-- styled-components
-- firebase
+- Styled-components
+- Firebase
