@@ -15,7 +15,9 @@ const MyRouter = () => {
         {isLoggedIn ? (
           <>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile">
+              <Route path=":uid" element={<Profile />} />
+            </Route>
             <Route path="/commeeting" element={<Commeet />} />
           </>
         ) : (
