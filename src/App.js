@@ -6,6 +6,12 @@ import { authActions } from './components/store/auth';
 import { userActions } from './components/store/user';
 import MyRouter from './components/routes/Router';
 import LoadingSpinner from 'components/ui/LoadingSpinner';
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+
+const GlobalStyle = createGlobalStyle`
+    ${reset}
+`;
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +30,7 @@ const App = () => {
 
   return (
     <>
+      {/* <GlobalStyle /> */}
       {isLoading ? <MyRouter /> : <LoadingSpinner />}
       <footer>&copy;{new Date().getFullYear()} Commeet</footer>
     </>
