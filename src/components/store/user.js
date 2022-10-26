@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateCurrentUser } from 'firebase/auth';
+import { auth } from '../../Firebase';
 
-const initialState = { userInfo: null };
+const initialState = { userInfo: null, user: auth.currentUser };
 
 const userSlice = createSlice({
   name: 'user',

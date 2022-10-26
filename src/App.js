@@ -1,4 +1,4 @@
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, updateCurrentUser } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from './Firebase';
@@ -27,6 +27,11 @@ const App = () => {
       setIsLoading(true);
     });
   }, [dispatch]);
+
+  const refreshUser = async () => {
+    await updateCurrentUser(auth, auth.currentUser);
+    dispatch(userActions.setUserInfo(auth.currentUser));
+  };
 
   return (
     <>

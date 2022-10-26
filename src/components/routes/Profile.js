@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TbUserCircle } from 'react-icons/tb';
 import { AiOutlineCamera } from 'react-icons/ai';
-import { updateProfile } from 'firebase/auth';
+import { updateCurrentUser, updateProfile } from 'firebase/auth';
 import { auth, storage } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { v4 } from 'uuid';
+import Modal from 'components/ui/Modal';
+import { userActions } from 'components/store/user';
 
 const Profile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [file, setFile] = useState('');
   const [newName, setNewName] = useState('');
   const [updateMode, setUpdateMode] = useState(false);
+  const [imageMode, setImageMode] = useState(false);
   const userInfo = useSelector((state) => state.user.userInfo);
+  const refreshUser = async () => {
+    await updateCurrentUser(auth, auth.currentUser);
+    dispatch(userActions.setUserInfo(auth.currentUser));
+  };
 
   const onUpdateMode = () => {
     setUpdateMode(true);
@@ -28,10 +36,13 @@ const Profile = () => {
     updateProfile(auth.currentUser, {
       displayName: newName,
     });
+    refreshUser();
     navigate('/', { replace: true });
   };
 
-  const showPhotoNav = () => {};
+  const showPhotoNav = () => {
+    setImageMode(true);
+  };
 
   const onImageChange = (event) => {
     const { files } = event.target;
@@ -54,6 +65,7 @@ const Profile = () => {
     await updateProfile(auth.currentUser, {
       photoURL: photoUrl,
     });
+    refreshUser();
     setFile('');
     navigate('/', { replace: true });
   };
@@ -66,6 +78,7 @@ const Profile = () => {
     await updateProfile(auth.currentUser, {
       photoURL: null,
     });
+
     navigate('/', { replace: true });
   };
   return (
@@ -100,17 +113,26 @@ const Profile = () => {
           )}
         </div>
       </div>
-      <form onSubmit={onSubmit}>
-        <input type="file" accept="image/*" onChange={onImageChange} />
-        {file && (
-          <>
-            <img src={file} width="100px" height="100px" alt="commeet-pic" />
-            <button onClick={onFileClear}>❌</button>
-          </>
-        )}
-        <button>프로필 바꾸기</button>
-        <button onClick={onDeleteImage}>프로필 삭제</button>
-      </form>
+      {imageMode && (
+        <Modal>
+          <form onSubmit={onSubmit}>
+            <input type="file" accept="image/*" onChange={onImageChange} />
+            {file && (
+              <>
+                <img
+                  src={file}
+                  width="100px"
+                  height="100px"
+                  alt="commeet-pic"
+                />
+                <button onClick={onFileClear}>❌</button>
+              </>
+            )}
+            <button>프로필 바꾸기</button>
+            <button onClick={onDeleteImage}>프로필 삭제</button>
+          </form>
+        </Modal>
+      )}
     </>
   );
 };
