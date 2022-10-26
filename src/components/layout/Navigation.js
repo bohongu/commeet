@@ -1,11 +1,13 @@
+import { themeActions } from 'components/store/theme';
 import React, { useState } from 'react';
 import { TbUserCircle } from 'react-icons/tb';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import UserModal from './UserModal';
 
 const Navigation = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
+  const dispatch = useDispatch();
   const [showProfile, setShowProfile] = useState(false);
   const onShowProfile = () => {
     setShowProfile(true);
@@ -13,7 +15,9 @@ const Navigation = () => {
   const onCloseProfile = () => {
     setShowProfile(false);
   };
-
+  const onToggleDarkMode = () => {
+    dispatch(themeActions.toggleDarkMode());
+  };
   return (
     <>
       <nav>
@@ -36,6 +40,7 @@ const Navigation = () => {
               <TbUserCircle style={{ height: '30px', width: '30px' }} />
             )}
           </li>
+          <li onClick={onToggleDarkMode}>다크모드</li>
         </ul>
       </nav>
       {showProfile && <UserModal onCloseProfile={onCloseProfile} />}
