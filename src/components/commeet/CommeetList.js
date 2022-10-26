@@ -46,12 +46,16 @@ const CommeetList = ({ commeet }) => {
         <h3>{commeet.commeet}</h3>
         <h3>{commeet.author}</h3>
         <h3>{commeet.createdAt}</h3>
-        <img
-          src={commeet.fileUrl}
-          alt="commeet-pic"
-          width="100px"
-          height="100px"
-        />
+        {commeet.fileUrl ? (
+          <img
+            src={commeet.fileUrl}
+            alt="commeet-pic"
+            width="100px"
+            height="100px"
+          />
+        ) : (
+          <div style={{ width: '100px', height: '100px' }}>사진 없음</div>
+        )}
         {owner && <div onClick={onSetting}>환경설정</div>}
         {setting && (
           <>

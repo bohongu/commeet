@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TbUserCircle } from 'react-icons/tb';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { updateCurrentUser, updateProfile } from 'firebase/auth';
-import { auth, storage } from '../../Firebase';
+import { auth, db, storage } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { v4 } from 'uuid';
 import Modal from 'components/ui/Modal';
 import { userActions } from 'components/store/user';
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [myCommeets, setMyCommeets] = useState([]);
   const [file, setFile] = useState('');
   const [newName, setNewName] = useState('');
   const [updateMode, setUpdateMode] = useState(false);
   const [imageMode, setImageMode] = useState(false);
   const userInfo = useSelector((state) => state.user.userInfo);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, 'commeets'),
+      where('authorId', '==', userInfo.uid),
+      orderBy('createdAt', 'desc'),
+    );
+    onSnapshot(q, (querySnapshot) => {
+      const updateCommeet = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMyCommeets(updateCommeet);
+    });
+  }, [userInfo.uid]);
+
   const refreshUser = async () => {
     await updateCurrentUser(auth, auth.currentUser);
     dispatch(userActions.setUserInfo(auth.currentUser));
@@ -113,6 +137,10 @@ const Profile = () => {
           )}
         </div>
       </div>
+      {myCommeets &&
+        myCommeets.map((commeet) => (
+          <div key={commeet.id}>{commeet.title}</div>
+        ))}
       {imageMode && (
         <Modal>
           <form onSubmit={onSubmit}>
