@@ -1,8 +1,9 @@
 import React from 'react';
-import CommeetForm from '../commeet/CommeetForm';
+import { useParams } from 'react-router-dom';
 
 const Commeet = () => {
-  return <CommeetForm />;
+  const { id } = useParams();
+  return <div>새 라우터 {id}</div>;
 };
 
 export default Commeet;

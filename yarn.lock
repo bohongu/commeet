@@ -7173,6 +7173,11 @@ pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
+polish@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/polish/-/polish-0.2.3.tgz#4a95296b5501dd10d3b25b8e6ed8339ef4deb147"
+  integrity sha512-nm1IWrjEV40eU7ap0h2l7P+ZoItiwsoZRvBpJ6kVYlD9fCf+HQuz/AuNZ0cKubHWK/pJP+L+q8RhHC6ZGHDnJQ==
+
 postcss-attribute-case-insensitive@^5.0.2:
   version "5.0.2"
   resolved "https://registry.npmjs.org/postcss-attribute-case-insensitive/-/postcss-attribute-case-insensitive-5.0.2.tgz"

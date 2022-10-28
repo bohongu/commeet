@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navigation from '../layout/Navigation';
 import Auth from './Auth';
 import Commeet from './Commeet';
+import Commeeting from './Commeeting';
 import Home from './Home';
 import Profile from './Profile';
 
@@ -15,10 +16,13 @@ const MyRouter = () => {
         {isLoggedIn ? (
           <>
             <Route path="/" element={<Home />} />
+            <Route path="commeets">
+              <Route path=":id" element={<Commeet />} />
+            </Route>
             <Route path="/profile">
               <Route path=":uid" element={<Profile />} />
             </Route>
-            <Route path="/commeeting" element={<Commeet />} />
+            <Route path="/commeeting" element={<Commeeting />} />
           </>
         ) : (
           <Route path="/" element={<Auth />} />
