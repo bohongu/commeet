@@ -9,13 +9,23 @@ import LoadingSpinner from 'components/ui/LoadingSpinner';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import reset from 'styled-reset';
 import { darkTheme, lightTheme } from 'theme';
+import Footer from 'components/layout/Footer';
 
 const GlobalStyle = createGlobalStyle`
-    ${reset}
-    body {
-      background-color: ${(props) => props.theme.bgColor};
-      color:${(props) => props.theme.textColor}
-    }
+  ${reset}
+
+  body {
+    height:100vh;
+  }
+
+  body * {
+    box-sizing: border-box;
+    width: 100%;
+    text-decoration: none;
+    background: ${(props) => props.theme.bgColor};
+    color:${(props) => props.theme.textColor}
+  }
+
 `;
 
 const App = () => {
@@ -38,7 +48,7 @@ const App = () => {
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
       {isLoading ? <MyRouter /> : <LoadingSpinner />}
-      <footer>&copy;{new Date().getFullYear()} Commeet</footer>
+      <Footer />
     </ThemeProvider>
   );
 };

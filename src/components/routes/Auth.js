@@ -1,3 +1,4 @@
+import Main from 'components/layout/Main';
 import {
   createUserWithEmailAndPassword,
   GithubAuthProvider,
@@ -7,6 +8,7 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { auth } from '../../Firebase';
 
 const Auth = () => {
@@ -87,67 +89,125 @@ const Auth = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="email">이메일</label>
-      <input
-        id="email"
-        type="text"
-        name="email"
-        required
-        placeholder="이메일"
-        onChange={onChange}
-        value={email}
-      />
-      {emailError}
-      <label htmlFor="password">비밀번호</label>
-      <input
-        id="password"
-        type="password"
-        name="password"
-        required
-        placeholder="비밀번호"
-        onChange={onChange}
-        value={password}
-      />
-      {newAccount && (
-        <>
-          <label htmlFor="confirm">비밀번호 확인</label>
+    <Main>
+      <FormWrapper onSubmit={onSubmit}>
+        <h1>Commeet</h1>
+        <AuthInput>
+          <label htmlFor="email">이메일</label>
           <input
-            id="confirm"
-            type="password"
-            name="confirm"
-            required
-            placeholder="비밀번호 확인"
-            onChange={onChange}
-            value={confirm}
-          />
-          <label htmlFor="nickname">닉네임</label>
-          <input
-            id="nickname"
+            id="email"
             type="text"
-            name="nickname"
+            name="email"
             required
-            placeholder="닉네임"
+            placeholder="이메일"
             onChange={onChange}
-            value={nickname}
+            value={email}
           />
-        </>
-      )}
-      {passwordError}
-      <button>{newAccount ? '회원가입' : '로그인'}</button>
-      <span onClick={toggleAccount}>
-        {newAccount ? '로그인하기' : '회원가입하기'}
-      </span>
-      <div>
-        <button onClick={onSocial} name="google">
-          구글 로그인
-        </button>
-        <button onClick={onSocial} name="github">
-          깃허브 로그인
-        </button>
-      </div>
-    </form>
+          <ErrorMessage>{emailError}</ErrorMessage>
+          <label htmlFor="password">비밀번호</label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            required
+            placeholder="비밀번호"
+            onChange={onChange}
+            value={password}
+          />
+          {newAccount && (
+            <>
+              <label htmlFor="confirm">비밀번호 확인</label>
+              <input
+                id="confirm"
+                type="password"
+                name="confirm"
+                required
+                placeholder="비밀번호 확인"
+                onChange={onChange}
+                value={confirm}
+              />
+              <ErrorMessage>{passwordError}</ErrorMessage>
+              <label htmlFor="nickname">닉네임</label>
+              <input
+                id="nickname"
+                type="text"
+                name="nickname"
+                required
+                placeholder="닉네임"
+                onChange={onChange}
+                value={nickname}
+              />
+            </>
+          )}
+
+          <button>{newAccount ? '회원가입' : '로그인'}</button>
+        </AuthInput>
+
+        <SocialLogin>
+          <button onClick={onSocial} name="google">
+            구글 로그인
+          </button>
+          <button onClick={onSocial} name="github">
+            깃허브 로그인
+          </button>
+        </SocialLogin>
+        <AuthToggle onClick={toggleAccount}>
+          {newAccount ? '로그인하기' : '회원가입하기'}
+        </AuthToggle>
+      </FormWrapper>
+    </Main>
   );
 };
 
 export default Auth;
+
+const FormWrapper = styled.form`
+  padding: 2.5%;
+  width: 350px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.75rem;
+  }
+`;
+
+const AuthInput = styled.div`
+  margin: 15% 0;
+  * {
+    margin: 3.5% 0;
+  }
+  input {
+    height: 35px;
+  }
+  button {
+    height: 30px;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  margin: 0;
+  width: 100%;
+  color: red;
+  text-align: center;
+`;
+
+const SocialLogin = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid black;
+  padding: 7% 0;
+  margin-bottom: 7%;
+  button {
+    width: 40%;
+  }
+`;
+
+const AuthToggle = styled.div`
+  text-align: center;
+`;

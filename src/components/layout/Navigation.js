@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { TbUserCircle } from 'react-icons/tb';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import UserModal from './UserModal';
 
 const Navigation = () => {
@@ -20,15 +21,15 @@ const Navigation = () => {
   };
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">홈</Link>
-          </li>
-          <li>
-            <Link to="/commeeting">글쓰기</Link>
-          </li>
-          <li onClick={onShowProfile}>
+      <NavWrapper>
+        <div>
+          <Link to="/">홈</Link>
+        </div>
+        <Nav>
+          <div>
+            <Link to="/commeeting">글</Link>
+          </div>
+          <div onClick={onShowProfile}>
             {userInfo.photoURL ? (
               <img
                 src={userInfo.photoURL}
@@ -39,13 +40,37 @@ const Navigation = () => {
             ) : (
               <TbUserCircle style={{ height: '30px', width: '30px' }} />
             )}
-          </li>
-          <li onClick={onToggleDarkMode}>다크모드</li>
-        </ul>
-      </nav>
+          </div>
+          <div onClick={onToggleDarkMode}>다크</div>
+        </Nav>
+      </NavWrapper>
       {showProfile && <UserModal onCloseProfile={onCloseProfile} />}
     </>
   );
 };
 
 export default Navigation;
+
+const NavWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 15%;
+`;
+
+const Nav = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  div {
+    height: 45px;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1.25%;
+  }
+`;

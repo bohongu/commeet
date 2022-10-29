@@ -3,6 +3,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { db, storage } from '../../Firebase';
 import CommeetUpdate from './CommeetUpdate';
 
@@ -35,15 +36,8 @@ const CommeetList = ({ commeet }) => {
           setShowUpdateForm={setShowUpdateForm}
         />
       )}
-      <section
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <h3>{commeet.title}</h3>
-        <h3>{commeet.commeet}</h3>
+      <section>
+        <Link to={`commeets/${commeet.id}`}>{commeet.title}</Link>
         <h3>{commeet.author}</h3>
         <h3>{commeet.createdAt}</h3>
         {commeet.fileUrl ? (
