@@ -8,6 +8,7 @@ import UserModal from './UserModal';
 
 const Navigation = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const dispatch = useDispatch();
   const [showProfile, setShowProfile] = useState(false);
   const onShowProfile = () => {
@@ -41,7 +42,7 @@ const Navigation = () => {
               <TbUserCircle style={{ height: '30px', width: '30px' }} />
             )}
           </div>
-          <div onClick={onToggleDarkMode}>다크</div>
+          <div onClick={onToggleDarkMode}>{isDarkMode ? '라잍' : '다크'}</div>
         </Nav>
       </NavWrapper>
       {showProfile && <UserModal onCloseProfile={onCloseProfile} />}

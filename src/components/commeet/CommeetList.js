@@ -1,9 +1,11 @@
+import Main from 'components/layout/Main';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { db, storage } from '../../Firebase';
 import CommeetUpdate from './CommeetUpdate';
 
@@ -36,20 +38,22 @@ const CommeetList = ({ commeet }) => {
           setShowUpdateForm={setShowUpdateForm}
         />
       )}
-      <section>
-        <Link to={`commeets/${commeet.id}`}>{commeet.title}</Link>
-        <h3>{commeet.author}</h3>
-        <h3>{commeet.createdAt}</h3>
-        {commeet.fileUrl ? (
-          <img
-            src={commeet.fileUrl}
-            alt="commeet-pic"
-            width="100px"
-            height="100px"
-          />
-        ) : (
-          <div style={{ width: '100px', height: '100px' }}>사진 없음</div>
-        )}
+      <Main>
+        <CommeetListWrapper>
+          <CommeetLists>
+            <img
+              src={commeet.fileUrl}
+              alt="commeet-pic"
+              width="100px"
+              height="100px"
+            />
+            <title>
+              <Link to={`commeets/${commeet.id}`}>{commeet.title}</Link>
+            </title>
+            <h3>{commeet.author}</h3>
+            <h3>{commeet.createdAt}</h3>
+          </CommeetLists>
+        </CommeetListWrapper>
         {owner && <div onClick={onSetting}>환경설정</div>}
         {setting && (
           <>
@@ -58,9 +62,32 @@ const CommeetList = ({ commeet }) => {
             <div onClick={onCancel}>취소</div>
           </>
         )}
-      </section>
+      </Main>
     </>
   );
 };
 
 export default CommeetList;
+
+const CommeetListWrapper = styled.div`
+  margin: 0 20%;
+`;
+
+const CommeetLists = styled.div`
+  display: grid;
+  height: 80px;
+  grid-template-columns: 12.5% 62.5% 12.5% 12.5%;
+  margin: 2% 0;
+
+  * {
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  title {
+    justify-content: start;
+    padding-left: 5px;
+  }
+`;

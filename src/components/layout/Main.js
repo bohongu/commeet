@@ -13,4 +13,5 @@ const MainWrapper = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: ${(props) => props.theme.bgColor};
 `;
