@@ -1,17 +1,41 @@
 import Main from 'components/layout/Main';
 import React, { useState } from 'react';
-import { TbUserCircle, TbLineDotted } from 'react-icons/tb';
+import { TbUserCircle } from 'react-icons/tb';
 import { GoComment } from 'react-icons/go';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CommentList from 'components/comment/CommentList';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from 'firebase/firestore';
+import { db, storage } from '../../Firebase';
+import { BsPencilFill, BsFillTrashFill } from 'react-icons/bs';
+import { deleteObject, ref } from 'firebase/storage';
 
 const CommeetList = ({ commeet }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
+  const [updating, setUpdating] = useState(false);
   const [showComment, setShowComment] = useState(false);
+  const isOwner = commeet.authorId === userInfo.uid;
   const onToggleComment = () => {
     setShowComment((prev) => !prev);
   };
+  const onDeleteClick = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const ok = confirm('삭제하시겠습니까?');
+    if (ok) {
+      await deleteDoc(doc(db, 'commeets', `${commeet.id}`));
+      await deleteObject(ref(storage, commeet.fileUrl));
+    }
+  };
+  const toggleUpdating = () => setUpdating((prev) => !prev);
+  const updateClick = async () => {};
+
   return (
     <Main>
       <CommeetWrapper>
@@ -32,15 +56,22 @@ const CommeetList = ({ commeet }) => {
           <CommeetAuthor>{commeet.author}</CommeetAuthor>
           <CommeetCommeet>{commeet.commeet}</CommeetCommeet>
           <CommeetDate>{commeet.createdAt}</CommeetDate>
-          <CommeetImage src={commeet.fileUrl} />
+          {commeet.fileUrl ? (
+            <CommeetImage src={commeet.fileUrl} />
+          ) : (
+            <NoImage />
+          )}
         </CommeetCenter>
         <CommeetRight>
-          <TbLineDotted
-            style={{
-              height: '25px',
-              width: '25px',
-            }}
-          />
+          {isOwner ? (
+            <>
+              <BsFillTrashFill
+                onClick={onDeleteClick}
+                style={{ marginBottom: '1rem' }}
+              />
+              <BsPencilFill onClick={toggleUpdating} />
+            </>
+          ) : null}
         </CommeetRight>
         <CommentButton>
           <GoComment
@@ -67,6 +98,7 @@ const CommeetWrapper = styled.section`
   padding: 5px;
   width: 32rem;
   display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
   grid-template-areas:
     'left center right'
     'button button button'
@@ -109,6 +141,10 @@ const CommeetImage = styled.img`
   height: 24rem;
   width: 24rem;
   border-radius: 10px;
+`;
+
+const NoImage = styled.div`
+  width: 24rem;
 `;
 
 const CommeetRight = styled(CommeetSections)`

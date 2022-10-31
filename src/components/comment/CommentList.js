@@ -1,4 +1,5 @@
 import React from 'react';
+import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs';
 import { TbLineDotted } from 'react-icons/tb';
 import styled from 'styled-components';
 
@@ -17,12 +18,10 @@ const CommentList = () => {
         </CommentText>
       </CommentCenter>
       <CommentRight>
-        <TbLineDotted
-          style={{
-            height: '25px',
-            width: '25px',
-          }}
-        />
+        <>
+          <BsFillTrashFill style={{ marginBottom: '1rem' }} />
+          <BsPencilFill />
+        </>
       </CommentRight>
     </CommentWrapper>
   );
@@ -35,7 +34,6 @@ const CommentWrapper = styled.div`
   grid-template-columns: 1fr 8fr 1fr;
   grid-template-areas: 'profile content setting';
   grid-area: comment;
-  border: 1px solid black;
 `;
 
 const CommentLeft = styled.div`
@@ -48,8 +46,8 @@ const CommentLeft = styled.div`
 
 const CommentAutherImage = styled.img`
   border: 1px solid black;
-  height: 46px;
-  width: 46px;
+  height: 45px;
+  width: 45px;
   border-radius: 50%;
 `;
 
@@ -66,7 +64,9 @@ const CommentAuthor = styled.div`
 const CommentText = styled.p``;
 
 const CommentRight = styled.div`
-  grid-area: setting;
+  padding: 5px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  grid-area: setting;
 `;

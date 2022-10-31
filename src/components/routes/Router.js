@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navigation from '../layout/Navigation';
 import Auth from './Auth';
-import Commeet from './Commeet';
 import Commeeting from './Commeeting';
 import Home from './Home';
 import Profile from './Profile';

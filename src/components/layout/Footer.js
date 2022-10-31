@@ -11,6 +11,7 @@ const Footer = () => {
 export default Footer;
 
 const FooterWrapper = styled.footer`
+  position: fixed;
   height: 5rem;
   padding: 10px 0;
   width: 100%;
@@ -20,4 +21,5 @@ const FooterWrapper = styled.footer`
   justify-content: center;
   align-items: center;
   color: ${lighten(0.7, 'black')};
+  background: ${(props) => props.theme.bgColor};
 `;

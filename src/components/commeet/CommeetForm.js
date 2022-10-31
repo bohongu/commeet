@@ -143,8 +143,6 @@ const PostAuthorImageArea = styled.div`
 `;
 
 const PostAutherImage = styled.img`
-  padding: 1rem;
-  border: 1px solid black;
   height: 46px;
   width: 46px;
   border-radius: 50%;

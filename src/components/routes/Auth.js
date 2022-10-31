@@ -50,7 +50,10 @@ const Auth = () => {
           } else {
             // 회원가입 후 로그인 하는 로직
             await createUserWithEmailAndPassword(auth, email, password);
-            await updateProfile(auth.currentUser, { displayName: nickname });
+            await updateProfile(auth.currentUser, {
+              displayName: nickname,
+              photoURL: null,
+            });
           }
         } else {
           setPasswordError('비밀번호가 일치하지 않습니다');
@@ -93,66 +96,64 @@ const Auth = () => {
       <FormWrapper onSubmit={onSubmit}>
         <h1>Commeet</h1>
         <AuthInput>
-          <label htmlFor="email">이메일</label>
           <input
             id="email"
             type="text"
             name="email"
             required
-            placeholder="이메일"
+            placeholder="Email"
             onChange={onChange}
             value={email}
           />
           <ErrorMessage>{emailError}</ErrorMessage>
-          <label htmlFor="password">비밀번호</label>
+
           <input
             id="password"
             type="password"
             name="password"
             required
-            placeholder="비밀번호"
+            placeholder="Password"
             onChange={onChange}
             value={password}
           />
           {newAccount && (
             <>
-              <label htmlFor="confirm">비밀번호 확인</label>
               <input
                 id="confirm"
                 type="password"
                 name="confirm"
                 required
-                placeholder="비밀번호 확인"
+                placeholder="Password Confirm"
                 onChange={onChange}
                 value={confirm}
               />
               <ErrorMessage>{passwordError}</ErrorMessage>
-              <label htmlFor="nickname">닉네임</label>
+
               <input
                 id="nickname"
                 type="text"
                 name="nickname"
                 required
-                placeholder="닉네임"
+                placeholder="Nickname"
                 onChange={onChange}
                 value={nickname}
               />
             </>
           )}
 
-          <button>{newAccount ? '회원가입' : '로그인'}</button>
+          <button>{newAccount ? 'Create Account' : 'Sign In'}</button>
         </AuthInput>
 
         <SocialLogin>
           <button onClick={onSocial} name="google">
-            구글 로그인
+            Continue with Google
           </button>
           <button onClick={onSocial} name="github">
-            깃허브 로그인
+            Continue with Github
           </button>
         </SocialLogin>
         <AuthToggle onClick={toggleAccount}>
-          {newAccount ? '로그인하기' : '회원가입하기'}
+          {newAccount ? 'Sign In' : 'Create Account'}
         </AuthToggle>
       </FormWrapper>
     </Main>
@@ -164,7 +165,6 @@ export default Auth;
 const FormWrapper = styled.form`
   padding: 2.5%;
   width: 350px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;

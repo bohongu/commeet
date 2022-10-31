@@ -14,7 +14,6 @@ const Navigation = () => {
   const onCloseProfile = () => {
     setShowProfile(false);
   };
-  console.log(userInfo.photoURL);
 
   return (
     <NavWrapper>
@@ -59,7 +58,6 @@ const NavWrapper = styled.div`
   padding: 0 10%;
   z-index: 10;
   h1 {
-    font-family: 'Permanent Marker', cursive;
     width: 10rem;
     font-size: 2rem;
     color: ${(props) => props.theme.textColor};

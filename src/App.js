@@ -16,14 +16,18 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     height:100vh;
+    background: ${(props) => props.theme.bgColor};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-
+  
   body * {
-    box-sizing: border-box;
     width: 100%;
     text-decoration: none;
-    background: ${(props) => props.theme.bgColor};
-    color:${(props) => props.theme.textColor}
+    box-sizing: border-box;
+    color:${(props) => props.theme.color}
   }
 
 `;

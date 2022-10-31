@@ -40,5 +40,8 @@ const Home = () => {
 export default Home;
 
 const HomeWrapper = styled.div`
-  margin-top: 5rem;
+  margin: 6rem 0;
+  height: calc(100vh - 10rem);
+  overflow: auto;
+  background: ${(props) => props.theme.bgColor};
 `;
