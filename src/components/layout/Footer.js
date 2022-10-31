@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { lighten } from 'polished';
 
 const Footer = () => {
   return (
@@ -10,8 +11,7 @@ const Footer = () => {
 export default Footer;
 
 const FooterWrapper = styled.footer`
-  height: 60px;
-  position: fixed;
+  height: 5rem;
   padding: 10px 0;
   width: 100%;
   bottom: 0;
@@ -19,4 +19,5 @@ const FooterWrapper = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: ${lighten(0.7, 'black')};
 `;

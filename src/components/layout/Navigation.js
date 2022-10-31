@@ -1,15 +1,12 @@
-import { themeActions } from 'components/store/theme';
 import React, { useState } from 'react';
 import { TbUserCircle } from 'react-icons/tb';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import UserModal from './UserModal';
 
 const Navigation = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
-  const dispatch = useDispatch();
   const [showProfile, setShowProfile] = useState(false);
   const onShowProfile = () => {
     setShowProfile(true);
@@ -17,36 +14,32 @@ const Navigation = () => {
   const onCloseProfile = () => {
     setShowProfile(false);
   };
-  const onToggleDarkMode = () => {
-    dispatch(themeActions.toggleDarkMode());
-  };
+  console.log(userInfo.photoURL);
+
   return (
-    <>
-      <NavWrapper>
-        <div>
-          <Link to="/">홈</Link>
-        </div>
-        <Nav>
-          <div>
-            <Link to="/commeeting">글</Link>
-          </div>
-          <div onClick={onShowProfile}>
-            {userInfo.photoURL ? (
-              <img
-                src={userInfo.photoURL}
-                height="30px"
-                width="30px"
-                alt="profile"
-              />
-            ) : (
-              <TbUserCircle style={{ height: '30px', width: '30px' }} />
-            )}
-          </div>
-          <div onClick={onToggleDarkMode}>{isDarkMode ? '라잍' : '다크'}</div>
-        </Nav>
-      </NavWrapper>
+    <NavWrapper>
+      <h1>
+        <Link to="/">Commeet</Link>
+      </h1>
+      {userInfo.photoURL ? (
+        <NavProfile
+          onClick={onShowProfile}
+          src={userInfo.photoURL}
+          alt="owner-pic"
+        />
+      ) : (
+        <TbUserCircle
+          style={{
+            borderRadius: '50%',
+            height: '60px',
+            width: '60px',
+            margin: '0 40px',
+          }}
+          onClick={onShowProfile}
+        />
+      )}
       {showProfile && <UserModal onCloseProfile={onCloseProfile} />}
-    </>
+    </NavWrapper>
   );
 };
 
@@ -56,22 +49,26 @@ const NavWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  height: 60px;
+  width: 100%;
+  height: 5rem;
+  color: ${(props) => props.theme.textColor};
+  background: ${(props) => props.theme.bgColor};
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 0 15%;
+  padding: 0 10%;
+  z-index: 10;
+  h1 {
+    font-family: 'Permanent Marker', cursive;
+    width: 10rem;
+    font-size: 2rem;
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 
-const Nav = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  div {
-    height: 45px;
-    width: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 1.25%;
-  }
+const NavProfile = styled.img`
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  margin: 0 40px;
 `;

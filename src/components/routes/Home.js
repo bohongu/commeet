@@ -29,19 +29,16 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <Main>
-      <HomeWrapper>
-        {commeets.map((commeet) => (
-          <CommeetList key={commeet.id} commeet={commeet} />
-        ))}
-      </HomeWrapper>
-    </Main>
+    <HomeWrapper>
+      {commeets.map((commeet) => (
+        <CommeetList key={commeet.id} commeet={commeet} />
+      ))}
+    </HomeWrapper>
   );
 };
 
 export default Home;
 
 const HomeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  margin-top: 5rem;
 `;

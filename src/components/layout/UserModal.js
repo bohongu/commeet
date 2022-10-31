@@ -21,6 +21,11 @@ const UserModal = ({ onCloseProfile }) => {
       <Link to={`profile/${userInfo.uid}`} onClick={onCloseProfile}>
         개인정보 설정
       </Link>
+      <div>
+        <Link to="commeeting" onClick={onCloseProfile}>
+          글쓰기
+        </Link>
+      </div>
       <div onClick={onLogout}>로그아웃</div>
     </Modal>
   );

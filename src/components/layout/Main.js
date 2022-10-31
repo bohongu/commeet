@@ -8,10 +8,8 @@ const Main = ({ children }) => {
 export default Main;
 
 const MainWrapper = styled.main`
-  height: 100vh;
-  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background: ${(props) => props.theme.bgColor};
+  margin-bottom: 1.5rem;
 `;

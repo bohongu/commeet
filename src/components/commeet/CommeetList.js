@@ -1,50 +1,125 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Main from 'components/layout/Main';
+import React, { useState } from 'react';
+import { TbUserCircle, TbLineDotted } from 'react-icons/tb';
+import { GoComment } from 'react-icons/go';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import CommentList from 'components/comment/CommentList';
 
 const CommeetList = ({ commeet }) => {
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [showComment, setShowComment] = useState(false);
+  const onToggleComment = () => {
+    setShowComment((prev) => !prev);
+  };
   return (
-    <>
-      <CommeetListWrapper>
-        <CommeetLists>
-          <img
-            src={commeet.fileUrl}
-            alt="commeet-pic"
-            width="100px"
-            height="100px"
+    <Main>
+      <CommeetWrapper>
+        <CommeetLeft>
+          {userInfo.photoURL ? (
+            <CommeetAuthorImage src={userInfo.photoURL} />
+          ) : (
+            <TbUserCircle
+              style={{
+                borderRadius: '50%',
+                height: '46px',
+                width: '46px',
+              }}
+            />
+          )}
+        </CommeetLeft>
+        <CommeetCenter>
+          <CommeetAuthor>{commeet.author}</CommeetAuthor>
+          <CommeetCommeet>{commeet.commeet}</CommeetCommeet>
+          <CommeetDate>{commeet.createdAt}</CommeetDate>
+          <CommeetImage src={commeet.fileUrl} />
+        </CommeetCenter>
+        <CommeetRight>
+          <TbLineDotted
+            style={{
+              height: '25px',
+              width: '25px',
+            }}
           />
-          <title>
-            <Link to={`commeets/${commeet.id}`}>{commeet.title}</Link>
-          </title>
-          <h3>{commeet.author}</h3>
-          <h3>{commeet.createdAt}</h3>
-        </CommeetLists>
-      </CommeetListWrapper>
-    </>
+        </CommeetRight>
+        <CommentButton>
+          <GoComment
+            style={{ height: '25px', width: '25px' }}
+            onClick={onToggleComment}
+          />
+        </CommentButton>
+        {showComment ? <CommentList /> : null}
+      </CommeetWrapper>
+    </Main>
   );
 };
 
 export default CommeetList;
 
-const CommeetListWrapper = styled.div`
-  padding: 0 20%;
+const CommeetSections = styled.div`
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const CommeetLists = styled.div`
+const CommeetWrapper = styled.section`
+  padding: 5px;
+  width: 32rem;
   display: grid;
-  height: 80px;
-  grid-template-columns: 12.5% 62.5% 12.5% 12.5%;
-  margin: 2% 0;
+  grid-template-areas:
+    'left center right'
+    'button button button'
+    'comment comment comment';
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+`;
 
-  * {
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+const CommeetLeft = styled(CommeetSections)`
+  grid-area: left;
+`;
 
-  title {
-    justify-content: start;
-    padding-left: 5px;
-  }
+const CommeetAuthorImage = styled.img`
+  height: 46px;
+  width: 46px;
+  border-radius: 50%;
+`;
+
+const CommeetCenter = styled(CommeetSections)`
+  grid-area: center;
+`;
+
+const CommeetAuthor = styled.div`
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.7rem;
+`;
+
+const CommeetCommeet = styled.p`
+  font-size: 1rem;
+  margin-bottom: 0.7rem;
+`;
+
+const CommeetDate = styled.div`
+  font-size: 0.8rem;
+  color: ${(props) => props.theme.textColor};
+  margin-bottom: 0.7rem;
+`;
+
+const CommeetImage = styled.img`
+  height: 24rem;
+  width: 24rem;
+  border-radius: 10px;
+`;
+
+const CommeetRight = styled(CommeetSections)`
+  grid-area: right;
+`;
+
+const CommentButton = styled.div`
+  width: 100%;
+  grid-area: button;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

@@ -5,25 +5,21 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom/dist';
 import { db, storage } from '../../Firebase';
 import { v4 } from 'uuid';
-import Main from 'components/layout/Main';
+import { BsImage } from 'react-icons/bs';
+
 import styled from 'styled-components';
+import Modal from 'components/ui/Modal';
+import { TbUserCircle } from 'react-icons/tb';
 
 const CommeetForm = () => {
-  const [inputs, setInputs] = useState({
-    title: '',
-    commeet: '',
-  });
+  const [commeet, setCommeet] = useState('');
   const [file, setFile] = useState('');
-  const { title, commeet } = inputs;
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.userInfo);
 
-  const onInputChnage = (event) => {
-    const { name, value } = event.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
+  const onInputChange = (event) => {
+    const { value } = event.target;
+    setCommeet(value);
   };
 
   const onImageChange = (event) => {
@@ -51,7 +47,6 @@ const CommeetForm = () => {
       fileUrl = await getDownloadURL(ref(storage, storageRef));
     }
     await addDoc(collection(db, 'commeets'), {
-      title,
       commeet,
       createdAt: date,
       updatedAt: null,
@@ -61,10 +56,7 @@ const CommeetForm = () => {
       authorId: userInfo.uid,
       fileUrl,
     });
-    setInputs({
-      title: '',
-      commeet: '',
-    });
+    setCommeet('');
     setFile('');
     navigate('/', { replace: true });
   };
@@ -73,192 +65,159 @@ const CommeetForm = () => {
   };
 
   return (
-    <Main>
-      <PostWrapper>
-        <PostHeader>
-          <div onClick={onBack}>&larr;</div>
-          <h1>NEW POST</h1>
-          <div></div>
-        </PostHeader>
-        <PostForm onSubmit={onSubmit}>
-          <PreviewWrapper>
-            {file ? (
-              <>
-                <ImagePreview src={file} alt="commeet-pic" />
-                <button onClick={onFileClear}>❌</button>
-              </>
+    <Modal>
+      <PostHeader>
+        <div onClick={onBack}>&larr;</div>
+        <h1>NEW COMMEET</h1>
+        <div></div>
+      </PostHeader>
+      <PostForm onSubmit={onSubmit}>
+        <PostInputs>
+          <PostAuthorImageArea>
+            {userInfo.photoURL ? (
+              <PostAutherImage src={userInfo.photoURL} />
             ) : (
-              <>
-                <FileLabel>파일찾기</FileLabel>
-                <PostFile
-                  id="image"
-                  type="file"
-                  accept="image/*"
-                  onChange={onImageChange}
-                />
-              </>
+              <TbUserCircle
+                style={{
+                  borderRadius: '50%',
+                  height: '46px',
+                  width: '46px',
+                }}
+              />
             )}
-          </PreviewWrapper>
+          </PostAuthorImageArea>
           <PostInput>
-            <AuthorInfo>
-              <AuthorPic src={userInfo.photoURL} />
-              <AuthorName>{userInfo.displayName}</AuthorName>
-            </AuthorInfo>
-            <PostInfo>
-              <label htmlFor="title">제목</label>
-              <PostTitle
-                name="title"
-                id="title"
-                value={title}
-                onChange={onInputChnage}
-              />
-              <label htmlFor="commeet">본문</label>
-              <PostDescription
-                name="commeet"
-                id="commeet"
-                value={commeet}
-                onChange={onInputChnage}
-              />
-            </PostInfo>
-            <ButtonWrapper>
-              <button>✔</button>
-            </ButtonWrapper>
+            <PostAutherName>{userInfo.displayName}</PostAutherName>
+            <PostTextArea onChange={onInputChange}></PostTextArea>
           </PostInput>
-        </PostForm>
-      </PostWrapper>
-    </Main>
+          <PostButtons>
+            <PostButton>COMMEET</PostButton>
+          </PostButtons>
+        </PostInputs>
+        <Preview>
+          {file ? (
+            <>
+              <DeleteButton onClick={onFileClear}>❌</DeleteButton>
+              <PreviewImage src={file} />
+            </>
+          ) : (
+            <PushImage>
+              <label htmlFor="commeet-image">
+                <BsImage />
+              </label>
+              <input type="file" id="commeet-image" onChange={onImageChange} />
+            </PushImage>
+          )}
+        </Preview>
+      </PostForm>
+    </Modal>
   );
 };
 
 export default CommeetForm;
 
-const PostWrapper = styled.div`
-  height: 700px;
-  width: 1000px;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-`;
-
 const PostHeader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  padding: 0 20px;
   border-bottom: 1px solid black;
+  padding: 0.5rem;
+  padding-top: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   h1 {
     display: flex;
     justify-content: center;
   }
 `;
 
-const PostForm = styled.form`
-  display: flex;
+const PostForm = styled.form``;
+
+const PostInputs = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  grid-template-areas: 'image content' 'image buttons';
 `;
 
-const PreviewWrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 650px;
-  height: 650px;
-  border-right: 1px solid black;
-  button {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: 50%;
-    bottom: 23px;
-    right: 23px;
-    cursor: pointer;
-  }
+const PostAuthorImageArea = styled.div`
+  grid-area: image;
 `;
 
-const ImagePreview = styled.img`
-  width: 650px;
-  height: 650px;
-  border-right: 1px solid black;
+const PostAutherImage = styled.img`
+  padding: 1rem;
+  border: 1px solid black;
+  height: 46px;
+  width: 46px;
+  border-radius: 50%;
 `;
 
 const PostInput = styled.div`
-  width: 350px;
-  margin-top: 20px;
+  grid-area: content;
 `;
 
-const AuthorInfo = styled.div`
+const PostAutherName = styled.div`
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.7rem;
+`;
+
+const PostTextArea = styled.textarea`
+  height: 5rem;
+  padding-left: 5px;
+  font-size: 1.25rem;
+  resize: none;
+`;
+
+const PostButtons = styled.div`
+  grid-area: buttons;
   display: flex;
-  padding: 0.75rem;
+  justify-content: flex-end;
+  margin: 1rem 0;
 `;
 
-const AuthorPic = styled.img`
-  height: 50px;
-  width: 50px;
+const PostButton = styled.button`
   border: 1px solid black;
-  border-radius: 50%;
-  margin-right: 0%;
-`;
-
-const AuthorName = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  padding-left: 5%;
-`;
-
-const PostInfo = styled.div`
-  padding: 0.75rem;
-  border-bottom: 1px solid black;
-  label {
-    font-size: 1.125rem;
-    font-weight: bold;
-  }
-`;
-
-const PostTitle = styled.input.attrs((props) => ({ type: 'text' }))`
-  margin: 1.125rem 0;
-  height: 35px;
-`;
-
-const PostDescription = styled.input.attrs((props) => ({ type: 'textarea' }))`
-  margin: 1.125rem 0;
-  height: 250px;
-`;
-
-const PostFile = styled.input.attrs((props) => ({ type: 'file' }))`
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-`;
-
-const FileLabel = styled.label.attrs((props) => ({ htmlFor: 'image' }))`
+  width: 5rem;
+  height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  cursor: pointer;
-  background: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.textColor};
-  height: 40px;
-  width: 130px;
-  padding: 10px 20px;
 `;
 
-const ButtonWrapper = styled.div`
+const Preview = styled.div`
+  position: relative;
+`;
+
+const PreviewImage = styled.img`
+  height: 27rem;
+`;
+
+const PushImage = styled.div`
+  border: 1px solid black;
   display: flex;
-  height: 140px;
+  justify-content: center;
   align-items: center;
-  justify-content: space-evenly;
-  button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    background: ${(props) => props.theme.accentColor};
+  height: 27rem;
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    width: auto;
   }
+  input {
+    display: none;
+  }
+`;
+
+const DeleteButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 3px;
+  left: 495px;
+  border: none;
+  background: none;
 `;

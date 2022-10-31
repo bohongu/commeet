@@ -41,20 +41,14 @@ const BackdropStyled = styled.div`
 
 const ModalWrapper = styled.div`
   position: fixed;
-  top: 15vh;
-  left: 5%;
-  width: 90%;
-  background-color: ${(props) => props.theme.accentColor};
+  top: 3rem;
+  width: 35rem;
+  background-color: ${(props) => props.theme.bgColor};
   padding: 1rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
-
-  @media (min-width: 768px) {
-    width: 40rem;
-    left: calc(50% - 20rem);
-  }
 
   @keyframes slide-down {
     from {
