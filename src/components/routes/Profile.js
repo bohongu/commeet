@@ -16,6 +16,8 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import styled from 'styled-components';
+import Main from 'components/layout/Main';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -106,63 +108,135 @@ const Profile = () => {
     navigate('/', { replace: true });
   };
   return (
-    <>
-      <h1>개인정보 수정</h1>
-      {userInfo.photoURL ? (
-        <img src={userInfo.photoURL} height="80px" width="80px" alt="profile" />
-      ) : (
-        <TbUserCircle style={{ height: '80px', width: '80px' }} />
-      )}
-      <AiOutlineCamera
-        style={{ height: '30px', width: '30px' }}
-        onClick={showPhotoNav}
-      />
-
-      <div>
-        <h2>기본정보</h2>
-        <div>
-          <span>이름</span>
-          {updateMode ? (
-            <input value={newName} onChange={onChange} />
-          ) : (
-            <span>{userInfo.displayName}</span>
-          )}
-          {updateMode ? (
-            <>
-              <button onClick={onUpdate}>확인</button>{' '}
-              <button onClick={onCancel}>취소</button>
-            </>
-          ) : (
-            <button onClick={onUpdateMode}>수정</button>
-          )}
-        </div>
-      </div>
-      {myCommeets &&
-        myCommeets.map((commeet) => (
-          <div key={commeet.id}>{commeet.title}</div>
-        ))}
-      {imageMode && (
-        <Modal>
-          <form onSubmit={onSubmit}>
-            <input type="file" accept="image/*" onChange={onImageChange} />
-            {file && (
-              <>
-                <img
-                  src={file}
-                  width="100px"
-                  height="100px"
-                  alt="commeet-pic"
-                />
-                <button onClick={onFileClear}>❌</button>
-              </>
+    <Main>
+      <ProfileWrapper>
+        <ProfileLeft>
+          <ProfileImageSection>
+            {userInfo.photoURL ? (
+              <ProfileImage src={userInfo.photoURL} />
+            ) : (
+              <TbUserCircle style={{ height: '10rem', width: '10rem' }} />
             )}
-            <button>프로필 바꾸기</button>
-            <button onClick={onDeleteImage}>프로필 삭제</button>
-          </form>
-        </Modal>
-      )}
-    </>
+            <UpdateImage>
+              <AiOutlineCamera />
+            </UpdateImage>
+          </ProfileImageSection>
+          <ProfileInfo>
+            <ProfileUsername>{userInfo.displayName}</ProfileUsername>
+            <UpdateName>U</UpdateName>
+          </ProfileInfo>
+        </ProfileLeft>
+        <ProfileRight>
+          {myCommeets &&
+            myCommeets.map((commeet) => (
+              <MyCommeetImage key={commeet.id} src={commeet.fileUrl} />
+            ))}
+        </ProfileRight>
+
+        {imageMode && (
+          <Modal>
+            <form onSubmit={onSubmit}>
+              <input type="file" accept="image/*" onChange={onImageChange} />
+              {file && (
+                <>
+                  <img
+                    src={file}
+                    width="100px"
+                    height="100px"
+                    alt="commeet-pic"
+                  />
+                  <button onClick={onFileClear}>❌</button>
+                </>
+              )}
+              <button>프로필 바꾸기</button>
+              <button onClick={onDeleteImage}>프로필 삭제</button>
+            </form>
+          </Modal>
+        )}
+      </ProfileWrapper>
+    </Main>
   );
 };
 
 export default Profile;
+
+const ProfileWrapper = styled.section`
+  width: 45rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  height: 30rem;
+  gap: 10px;
+`;
+
+const ProfileLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+`;
+
+const ProfileImageSection = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+`;
+
+const ProfileImage = styled.img`
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+`;
+
+const UpdateImage = styled.button`
+  position: absolute;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  bottom: 40px;
+  right: 40px;
+`;
+
+const ProfileInfo = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+`;
+
+const ProfileUsername = styled.div`
+  font-size: 1.125rem;
+`;
+
+const UpdateName = styled.button`
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+`;
+
+const ProfileRight = styled.div`
+  padding: 3px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  overflow-y: scroll;
+  gap: 3px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+`;
+
+const MyCommeetImage = styled.img`
+  border-radius: 5px;
+  height: 10rem;
+`;
+
+const MyCommeetNoImage = styled.div`
+  border-radius: 5px;
+  border: 1.5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+`;
