@@ -22,13 +22,13 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     text-decoration: none;
-
+    
   }
   
   body * {
+    box-sizing: border-box;
     width: 100%;
     text-decoration: none;
-    box-sizing: border-box;
     color:${(props) => props.theme.color}
   }
 
@@ -37,7 +37,9 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -53,6 +55,7 @@ const App = () => {
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
+
       {isLoading ? <MyRouter /> : <LoadingSpinner />}
       <Footer />
     </ThemeProvider>

@@ -1,9 +1,15 @@
+import { modalActions } from 'components/store/modal';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 
-const Backdrop = ({ children }) => {
-  return <BackdropStyled />;
+const Backdrop = () => {
+  const dispatch = useDispatch();
+  const onCloseModal = () => {
+    dispatch(modalActions.setCloseModal());
+  };
+  return <BackdropStyled onClick={onCloseModal} />;
 };
 
 const ModalOverlay = ({ children, menu }) => {

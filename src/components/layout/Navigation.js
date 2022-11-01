@@ -1,43 +1,13 @@
-import React, { useState } from 'react';
-import { TbUserCircle } from 'react-icons/tb';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import UserModal from './UserModal';
 
 const Navigation = () => {
-  const userInfo = useSelector((state) => state.user.userInfo);
-  const [showProfile, setShowProfile] = useState(false);
-  const onShowProfile = () => {
-    setShowProfile(true);
-  };
-  const onCloseProfile = () => {
-    setShowProfile(false);
-  };
-
   return (
     <NavWrapper>
       <h1>
         <Link to="/">Commeet</Link>
       </h1>
-      {userInfo.photoURL ? (
-        <NavProfile
-          onClick={onShowProfile}
-          src={userInfo.photoURL}
-          alt="owner-pic"
-        />
-      ) : (
-        <TbUserCircle
-          style={{
-            borderRadius: '50%',
-            height: '60px',
-            width: '60px',
-            margin: '0 40px',
-          }}
-          onClick={onShowProfile}
-        />
-      )}
-      {showProfile && <UserModal onCloseProfile={onCloseProfile} />}
     </NavWrapper>
   );
 };
@@ -62,11 +32,4 @@ const NavWrapper = styled.div`
     font-size: 2rem;
     color: ${(props) => props.theme.textColor};
   }
-`;
-
-const NavProfile = styled.img`
-  border-radius: 50%;
-  height: 60px;
-  width: 60px;
-  margin: 0 40px;
 `;

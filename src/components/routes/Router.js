@@ -1,3 +1,4 @@
+import Control from 'components/layout/Control';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navigation from '../layout/Navigation';
@@ -8,9 +9,15 @@ import Profile from './Profile';
 
 const MyRouter = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   return (
     <Router>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && (
+        <>
+          <Navigation />
+          <Control />
+        </>
+      )}
       <Routes>
         {isLoggedIn ? (
           <>

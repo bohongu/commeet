@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { db } from '../../Firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import CommeetList from '../commeet/CommeetList';
-import Main from 'components/layout/Main';
 import styled from 'styled-components';
+import { modalActions } from 'components/store/modal';
 const {
   collection,
   orderBy,
@@ -25,6 +25,7 @@ const Home = () => {
         ...doc.data(),
       }));
       dispatch(commeetActions.initCommeet(updateCommeet));
+      dispatch(modalActions.setCloseModal());
     });
   }, [dispatch]);
 
@@ -41,7 +42,7 @@ export default Home;
 
 const HomeWrapper = styled.div`
   margin: 6rem 0;
-  height: calc(100vh - 10rem);
+  height: calc(100vh - 12rem);
   overflow: auto;
   background: ${(props) => props.theme.bgColor};
 `;

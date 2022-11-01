@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TbUserCircle } from 'react-icons/tb';
 import { AiOutlineCamera } from 'react-icons/ai';
+import { GrUpdate, GrClose } from 'react-icons/gr';
 import { updateCurrentUser, updateProfile } from 'firebase/auth';
 import { auth, db, storage } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { v4 } from 'uuid';
-import Modal from 'components/ui/Modal';
 import { userActions } from 'components/store/user';
 import {
   collection,
@@ -17,7 +17,6 @@ import {
   where,
 } from 'firebase/firestore';
 import styled from 'styled-components';
-import Main from 'components/layout/Main';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -108,7 +107,7 @@ const Profile = () => {
     navigate('/', { replace: true });
   };
   return (
-    <Main>
+    <Profilex>
       <ProfileWrapper>
         <ProfileLeft>
           <ProfileImageSection>
@@ -122,8 +121,21 @@ const Profile = () => {
             </UpdateImage>
           </ProfileImageSection>
           <ProfileInfo>
-            <ProfileUsername>{userInfo.displayName}</ProfileUsername>
-            <UpdateName>U</UpdateName>
+            <ProfileUserInfo>
+              {updateMode ? (
+                <>
+                  <UpdateInput onChange={onChange} />
+                  <GrUpdate onClick={onUpdate} />
+                  <GrClose onClick={onCancel} />
+                </>
+              ) : (
+                <>
+                  <ProfileUsername>{userInfo.displayName}</ProfileUsername>
+                  <UpdateName onClick={onUpdateMode}>U</UpdateName>
+                </>
+              )}
+            </ProfileUserInfo>
+            <CommeetCount>Total Commeets : {myCommeets.length}</CommeetCount>
           </ProfileInfo>
         </ProfileLeft>
         <ProfileRight>
@@ -132,39 +144,28 @@ const Profile = () => {
               <MyCommeetImage key={commeet.id} src={commeet.fileUrl} />
             ))}
         </ProfileRight>
-
-        {imageMode && (
-          <Modal>
-            <form onSubmit={onSubmit}>
-              <input type="file" accept="image/*" onChange={onImageChange} />
-              {file && (
-                <>
-                  <img
-                    src={file}
-                    width="100px"
-                    height="100px"
-                    alt="commeet-pic"
-                  />
-                  <button onClick={onFileClear}>❌</button>
-                </>
-              )}
-              <button>프로필 바꾸기</button>
-              <button onClick={onDeleteImage}>프로필 삭제</button>
-            </form>
-          </Modal>
-        )}
       </ProfileWrapper>
-    </Main>
+    </Profilex>
   );
 };
 
 export default Profile;
 
+const Profilex = styled.div`
+  margin: 6rem 0;
+  height: calc(100vh - 12rem);
+  overflow: auto;
+  background: ${(props) => props.theme.bgColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const ProfileWrapper = styled.section`
   width: 45rem;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  height: 30rem;
+  height: 40rem;
   gap: 10px;
 `;
 
@@ -190,8 +191,11 @@ const ProfileImage = styled.img`
 `;
 
 const UpdateImage = styled.button`
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  border: none;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -201,8 +205,25 @@ const UpdateImage = styled.button`
 
 const ProfileInfo = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+`;
+
+const ProfileUserInfo = styled.div`
+  display: flex;
   align-items: center;
   padding: 1rem;
+`;
+
+const UpdateInput = styled.input``;
+
+const CommeetCount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  font-size: 1.25rem;
 `;
 
 const ProfileUsername = styled.div`
@@ -219,7 +240,7 @@ const ProfileRight = styled.div`
   padding: 3px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   overflow-y: scroll;
   gap: 3px;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
@@ -229,14 +250,5 @@ const ProfileRight = styled.div`
 
 const MyCommeetImage = styled.img`
   border-radius: 5px;
-  height: 10rem;
-`;
-
-const MyCommeetNoImage = styled.div`
-  border-radius: 5px;
-  border: 1.5px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 10rem;
 `;
