@@ -21,6 +21,8 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
+
   }
   
   body * {

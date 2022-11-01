@@ -3,6 +3,7 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { auth } from '../../Firebase';
 
 const UserModal = ({ onCloseProfile }) => {
@@ -17,18 +18,25 @@ const UserModal = ({ onCloseProfile }) => {
     }
   };
   return (
-    <Modal>
-      <Link to={`profile/${userInfo.uid}`} onClick={onCloseProfile}>
-        개인정보 설정
-      </Link>
-      <div>
-        <Link to="commeeting" onClick={onCloseProfile}>
-          글쓰기
-        </Link>
-      </div>
-      <div onClick={onLogout}>로그아웃</div>
+    <Modal menu>
+      <StyledLink to="commeeting" onClick={onCloseProfile}>
+        COMMEETING
+      </StyledLink>
+      <StyledLink to={`profile/${userInfo.uid}`} onClick={onCloseProfile}>
+        PROFILE
+      </StyledLink>
+      <StyledLink onClick={onLogout}>LOG OUT</StyledLink>
     </Modal>
   );
 };
 
 export default UserModal;
+
+const StyledLink = styled(Link)`
+  font-size: 1.125rem;
+  margin: 0.7rem 0;
+  display: flex;
+  justify-content: end;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+`;

@@ -1,26 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Backdrop = (props) => {
-  return <BackdropStyled onClick={props.onClose} />;
+const Backdrop = ({ children }) => {
+  return <BackdropStyled />;
 };
 
-const ModalOverlay = (props) => {
-  return <ModalWrapper>{props.children}</ModalWrapper>;
+const ModalOverlay = ({ children, menu }) => {
+  return <ModalWrapper menu={menu}>{children}</ModalWrapper>;
 };
 
 const portalElement = document.getElementById('modal');
 
-const Modal = (props) => {
+const Modal = ({ children, menu }) => {
   return (
     <>
+      {ReactDOM.createPortal(<Backdrop />, portalElement)}
       {ReactDOM.createPortal(
-        <Backdrop onClose={props.onClose} />,
-        portalElement,
-      )}
-      {ReactDOM.createPortal(
-        <ModalOverlay>{props.children}</ModalOverlay>,
+        <ModalOverlay menu={menu}>{children}</ModalOverlay>,
         portalElement,
       )}
     </>
@@ -49,6 +46,11 @@ const ModalWrapper = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
+  ${(props) =>
+    props.menu &&
+    css`
+      width: 15rem;
+    `}
 
   @keyframes slide-down {
     from {
