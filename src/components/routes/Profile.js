@@ -17,7 +17,7 @@ import {
   where,
 } from 'firebase/firestore';
 import styled from 'styled-components';
-import Modal from 'components/ui/Modal';
+import UpdateImageForm from 'components/layout/UpdateImageForm';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -100,12 +100,8 @@ const Profile = () => {
     setFile('');
   };
 
-  const onDeleteImage = async () => {
-    await updateProfile(auth.currentUser, {
-      photoURL: null,
-    });
-
-    navigate('/', { replace: true });
+  const onBack = () => {
+    navigate(-1);
   };
   return (
     <>
@@ -156,24 +152,13 @@ const Profile = () => {
         </ProfileWrapper>
       </Profilex>
       {imageMode && (
-        <Modal>
-          <form onSubmit={onSubmit}>
-            <input type="file" accept="image/*" onChange={onImageChange} />
-            {file && (
-              <>
-                <img
-                  src={file}
-                  width="100px"
-                  height="100px"
-                  alt="commeet-pic"
-                />
-                <button onClick={onFileClear}>❌</button>
-              </>
-            )}
-            <button>프로필 바꾸기</button>
-            <button onClick={onDeleteImage}>프로필 삭제</button>
-          </form>
-        </Modal>
+        <UpdateImageForm
+          file={file}
+          onBack={onBack}
+          onSubmit={onSubmit}
+          onFileClear={onFileClear}
+          onImageChange={onImageChange}
+        />
       )}
     </>
   );

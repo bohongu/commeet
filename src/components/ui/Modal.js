@@ -12,18 +12,18 @@ const Backdrop = () => {
   return <BackdropStyled onClick={onCloseModal} />;
 };
 
-const ModalOverlay = ({ children, menu }) => {
-  return <ModalWrapper menu={menu}>{children}</ModalWrapper>;
+const ModalOverlay = ({ children, update }) => {
+  return <ModalWrapper update={update}>{children}</ModalWrapper>;
 };
 
 const portalElement = document.getElementById('modal');
 
-const Modal = ({ children, menu }) => {
+const Modal = ({ children, update }) => {
   return (
     <>
       {ReactDOM.createPortal(<Backdrop />, portalElement)}
       {ReactDOM.createPortal(
-        <ModalOverlay menu={menu}>{children}</ModalOverlay>,
+        <ModalOverlay update={update}>{children}</ModalOverlay>,
         portalElement,
       )}
     </>
@@ -53,9 +53,9 @@ const ModalWrapper = styled.div`
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
   ${(props) =>
-    props.menu &&
+    props.update &&
     css`
-      width: 15rem;
+      width: 20rem;
     `}
 
   @keyframes slide-down {

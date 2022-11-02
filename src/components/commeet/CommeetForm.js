@@ -125,7 +125,7 @@ const CommeetForm = () => {
 
 export default CommeetForm;
 
-const PostHeader = styled.div`
+export const PostHeader = styled.div`
   border-bottom: 1px solid black;
   padding: 0.5rem;
   padding-top: 0;
