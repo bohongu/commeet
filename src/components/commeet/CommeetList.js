@@ -55,7 +55,7 @@ const CommeetList = ({ commeet }) => {
         <CommeetCenter>
           <CommeetAuthor>{commeet.author}</CommeetAuthor>
           <CommeetCommeet>{commeet.commeet}</CommeetCommeet>
-          <CommeetDate>{commeet.createdAt}</CommeetDate>
+          <CommeetDate>{commeet.recordCreatedAt}</CommeetDate>
           {commeet.fileUrl ? (
             <CommeetImage src={commeet.fileUrl} />
           ) : (
@@ -96,7 +96,7 @@ const CommeetSections = styled.div`
 
 const CommeetWrapper = styled.section`
   padding: 5px;
-  width: 32rem;
+  width: 45rem;
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
   grid-template-areas:
@@ -138,8 +138,8 @@ const CommeetDate = styled.div`
 `;
 
 const CommeetImage = styled.img`
-  height: 24rem;
-  width: 24rem;
+  height: 30rem;
+  width: 30rem;
   border-radius: 10px;
 `;
 
