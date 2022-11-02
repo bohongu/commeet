@@ -5,9 +5,9 @@ import styled from 'styled-components';
 const Navigation = () => {
   return (
     <NavWrapper>
-      <h1>
+      <div>
         <Link to="/">Commeet</Link>
-      </h1>
+      </div>
     </NavWrapper>
   );
 };
@@ -27,9 +27,11 @@ const NavWrapper = styled.div`
   align-items: center;
   padding: 0 10%;
   z-index: 10;
-  h1 {
-    width: 10rem;
-    font-size: 2rem;
+  div {
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+    font-size: 3rem;
     color: ${(props) => props.theme.textColor};
+    text-align: center;
   }
 `;

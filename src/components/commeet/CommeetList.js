@@ -40,8 +40,8 @@ const CommeetList = ({ commeet }) => {
     <Main>
       <CommeetWrapper>
         <CommeetLeft>
-          {userInfo.photoURL ? (
-            <CommeetAuthorImage src={userInfo.photoURL} />
+          {commeet.authorImage ? (
+            <CommeetAuthorImage src={commeet.authorImage} />
           ) : (
             <TbUserCircle
               style={{

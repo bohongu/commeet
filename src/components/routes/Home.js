@@ -28,12 +28,15 @@ const Home = () => {
       dispatch(modalActions.setCloseModal());
     });
   }, [dispatch]);
-
   return (
     <HomeWrapper>
-      {commeets.map((commeet) => (
-        <CommeetList key={commeet.id} commeet={commeet} />
-      ))}
+      {commeets.length !== 0 ? (
+        commeets.map((commeet) => (
+          <CommeetList key={commeet.id} commeet={commeet} />
+        ))
+      ) : (
+        <article>No Commeets</article>
+      )}
     </HomeWrapper>
   );
 };
@@ -45,4 +48,14 @@ const HomeWrapper = styled.div`
   height: calc(100vh - 12rem);
   overflow: auto;
   background: ${(props) => props.theme.bgColor};
+  article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    height: calc(100vh - 12rem);
+    opacity: 0.7;
+    color: ${(props) => props.theme.textColor};
+    z-index: 5;
+  }
 `;

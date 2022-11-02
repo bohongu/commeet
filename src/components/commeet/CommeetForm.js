@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom/dist';
 import { db, storage } from '../../Firebase';
 import { v4 } from 'uuid';
 import { BsImage } from 'react-icons/bs';
-
+import { MdOutlineCancel } from 'react-icons/md';
 import styled from 'styled-components';
 import Modal from 'components/ui/Modal';
 import { TbUserCircle } from 'react-icons/tb';
@@ -55,6 +55,7 @@ const CommeetForm = () => {
       author: userInfo.displayName,
       authorId: userInfo.uid,
       fileUrl,
+      authorImage: userInfo.photoURL,
     });
     setCommeet('');
     setFile('');
@@ -97,15 +98,23 @@ const CommeetForm = () => {
         <Preview>
           {file ? (
             <>
-              <DeleteButton onClick={onFileClear}>❌</DeleteButton>
+              <DeleteButton onClick={onFileClear}>
+                <MdOutlineCancel />
+              </DeleteButton>
               <PreviewImage src={file} />
             </>
           ) : (
             <PushImage>
               <label htmlFor="commeet-image">
                 <BsImage />
+                <div>Attaching a photo is required</div>
               </label>
-              <input type="file" id="commeet-image" onChange={onImageChange} />
+              <input
+                type="file"
+                id="commeet-image"
+                onChange={onImageChange}
+                required
+              />
             </PushImage>
           )}
         </Preview>
@@ -124,6 +133,9 @@ const PostHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  div:first-child {
+    cursor: pointer;
+  }
   h1 {
     display: flex;
     justify-content: center;
@@ -179,6 +191,7 @@ const PostButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Preview = styled.div`
@@ -197,10 +210,14 @@ const PushImage = styled.div`
   height: 27rem;
   label {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     font-size: 40px;
     width: auto;
+    cursor: pointer;
+    div {
+      font-size: 20px;
+      margin-top: 1rem;
+    }
   }
   input {
     display: none;
@@ -218,4 +235,7 @@ const DeleteButton = styled.button`
   left: 495px;
   border: none;
   background: none;
+  color: red;
+  font-size: 30px;
+  cursor: pointer;
 `;

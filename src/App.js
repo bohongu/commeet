@@ -55,7 +55,6 @@ const App = () => {
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <GlobalStyle />
-
       {isLoading ? <MyRouter /> : <LoadingSpinner />}
       <Footer />
     </ThemeProvider>
