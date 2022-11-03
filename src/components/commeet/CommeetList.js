@@ -5,22 +5,17 @@ import { GoComment } from 'react-icons/go';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CommentList from 'components/comment/CommentList';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { db, storage } from '../../Firebase';
 import { BsPencilFill, BsFillTrashFill } from 'react-icons/bs';
 import { deleteObject, ref } from 'firebase/storage';
+import CommeetUpdate from './CommeetUpdate';
 
 const CommeetList = ({ commeet }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
-  const [updating, setUpdating] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showComment, setShowComment] = useState(false);
+  const dbRef = doc(db, 'commeets', `${commeet.id}`);
   const isOwner = commeet.authorId === userInfo.uid;
   const onToggleComment = () => {
     setShowComment((prev) => !prev);
@@ -29,59 +24,65 @@ const CommeetList = ({ commeet }) => {
     // eslint-disable-next-line no-restricted-globals
     const ok = confirm('삭제하시겠습니까?');
     if (ok) {
-      await deleteDoc(doc(db, 'commeets', `${commeet.id}`));
+      await deleteDoc(dbRef);
       await deleteObject(ref(storage, commeet.fileUrl));
     }
   };
-  const toggleUpdating = () => setUpdating((prev) => !prev);
-  const updateClick = async () => {};
+  const onUpdateClick = () => {
+    setShowUpdateForm(true);
+  };
 
   return (
-    <Main>
-      <CommeetWrapper>
-        <CommeetLeft>
-          {commeet.authorImage ? (
-            <CommeetAuthorImage src={commeet.authorImage} />
-          ) : (
-            <TbUserCircle
-              style={{
-                borderRadius: '50%',
-                height: '46px',
-                width: '46px',
-              }}
-            />
-          )}
-        </CommeetLeft>
-        <CommeetCenter>
-          <CommeetAuthor>{commeet.author}</CommeetAuthor>
-          <CommeetCommeet>{commeet.commeet}</CommeetCommeet>
-          <CommeetDate>{commeet.recordCreatedAt}</CommeetDate>
-          {commeet.fileUrl ? (
-            <CommeetImage src={commeet.fileUrl} />
-          ) : (
-            <NoImage />
-          )}
-        </CommeetCenter>
-        <CommeetRight>
-          {isOwner ? (
-            <>
-              <BsFillTrashFill
-                onClick={onDeleteClick}
-                style={{ marginBottom: '1rem' }}
+    <>
+      <Main>
+        <CommeetWrapper>
+          <CommeetLeft>
+            {commeet.authorImage ? (
+              <CommeetAuthorImage src={commeet.authorImage} />
+            ) : (
+              <TbUserCircle
+                style={{
+                  borderRadius: '50%',
+                  height: '46px',
+                  width: '46px',
+                }}
               />
-              <BsPencilFill onClick={toggleUpdating} />
-            </>
-          ) : null}
-        </CommeetRight>
-        <CommentButton>
-          <GoComment
-            style={{ height: '25px', width: '25px' }}
-            onClick={onToggleComment}
-          />
-        </CommentButton>
-        {showComment ? <CommentList /> : null}
-      </CommeetWrapper>
-    </Main>
+            )}
+          </CommeetLeft>
+          <CommeetCenter>
+            <CommeetAuthor>{commeet.author}</CommeetAuthor>
+            <CommeetCommeet>{commeet.commeet}</CommeetCommeet>
+            <CommeetDate>{commeet.recordCreatedAt}</CommeetDate>
+            {commeet.fileUrl ? (
+              <CommeetImage src={commeet.fileUrl} />
+            ) : (
+              <NoImage />
+            )}
+          </CommeetCenter>
+          <CommeetRight>
+            {isOwner ? (
+              <>
+                <BsFillTrashFill
+                  onClick={onDeleteClick}
+                  style={{ marginBottom: '1rem' }}
+                />
+                <BsPencilFill onClick={onUpdateClick} />
+              </>
+            ) : null}
+          </CommeetRight>
+          <CommentButton>
+            <GoComment
+              style={{ height: '25px', width: '25px' }}
+              onClick={onToggleComment}
+            />
+          </CommentButton>
+          {showComment ? <CommentList /> : null}
+        </CommeetWrapper>
+      </Main>
+      {showUpdateForm ? (
+        <CommeetUpdate dbRef={dbRef} setShowUpdateForm={setShowUpdateForm} />
+      ) : null}
+    </>
   );
 };
 
@@ -149,6 +150,7 @@ const NoImage = styled.div`
 
 const CommeetRight = styled(CommeetSections)`
   grid-area: right;
+  font-size: 20px;
 `;
 
 const CommentButton = styled.div`

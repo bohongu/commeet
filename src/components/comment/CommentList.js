@@ -1,6 +1,5 @@
 import React from 'react';
-import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs';
-import { TbLineDotted } from 'react-icons/tb';
+import { BsFillTrashFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
 const CommentList = () => {
@@ -20,7 +19,6 @@ const CommentList = () => {
       <CommentRight>
         <>
           <BsFillTrashFill style={{ marginBottom: '1rem' }} />
-          <BsPencilFill />
         </>
       </CommentRight>
     </CommentWrapper>
@@ -69,4 +67,5 @@ const CommentRight = styled.div`
   flex-direction: column;
   align-items: center;
   grid-area: setting;
+  font-size: 20px;
 `;
