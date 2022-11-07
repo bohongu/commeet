@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PostHeader } from './CommeetForm';
 
-const CommeetUpdate = ({ dbRef, showSetting, setShowUpdateForm }) => {
+const CommeetUpdate = ({ dbRef, setShowUpdateForm }) => {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     newTitle: '',

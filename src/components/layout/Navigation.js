@@ -28,7 +28,6 @@ const NavWrapper = styled.div`
   padding: 0 10%;
   z-index: 10;
   div {
-    font-family: 'Kanit', sans-serif;
     font-weight: bold;
     font-size: 3rem;
     color: ${(props) => props.theme.textColor};

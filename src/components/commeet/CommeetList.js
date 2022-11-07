@@ -10,6 +10,7 @@ import { db, storage } from '../../Firebase';
 import { BsPencilFill, BsFillTrashFill } from 'react-icons/bs';
 import { deleteObject, ref } from 'firebase/storage';
 import CommeetUpdate from './CommeetUpdate';
+import CommentForm from 'components/comment/CommentForm';
 
 const CommeetList = ({ commeet }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -76,7 +77,12 @@ const CommeetList = ({ commeet }) => {
               onClick={onToggleComment}
             />
           </CommentButton>
-          {showComment ? <CommentList /> : null}
+          {showComment ? (
+            <>
+              <CommentList />
+              <CommentForm commeetId={commeet.id} />
+            </>
+          ) : null}
         </CommeetWrapper>
       </Main>
       {showUpdateForm ? (

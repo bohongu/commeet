@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    
+    font-family: 'Permanet Marker', cursive;
   }
   
   body * {
