@@ -23,7 +23,12 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     text-decoration: none;
     font-family: 'Permanet Marker', cursive;
-  }
+    -ms-overflow-style: none;
+    }
+    
+    ::-webkit-scrollbar {
+      display: none;
+    }
   
   body * {
     box-sizing: border-box;

@@ -102,12 +102,12 @@ const CommeetList = ({ commeet }) => {
             />
           </CommentButton>
           {showComment ? (
-            <>
+            <CommentSection>
               {rightComments.map((comment) => (
                 <CommentList key={comment.id} comment={comment} />
               ))}
               <CommentForm commeetId={commeet.id} />
-            </>
+            </CommentSection>
           ) : null}
         </CommeetWrapper>
       </Main>
@@ -192,4 +192,8 @@ const CommentButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const CommentSection = styled.div`
+  grid-area: comment;
 `;

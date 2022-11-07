@@ -1,11 +1,8 @@
-import { db } from '../../Firebase';
-
 import React from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
 const CommentList = ({ comment }) => {
-  console.log(comment);
   return (
     <CommentWrapper>
       <CommentLeft>
@@ -30,7 +27,7 @@ const CommentWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
   grid-template-areas: 'profile content setting';
-  grid-area: comment;
+  border: 1px solid black;
 `;
 
 const CommentLeft = styled.div`
