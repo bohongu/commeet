@@ -16,6 +16,7 @@ const CommentForm = ({ commeetId }) => {
       comment,
       commeetId,
       commentCreatedAt: recordDate,
+      commentAuthorAvatar: userInfo.photoURL,
       commentAuthor: userInfo.displayName,
       commentAuthorId: userInfo.uid,
     });

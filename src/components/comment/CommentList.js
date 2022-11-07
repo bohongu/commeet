@@ -1,24 +1,23 @@
+import { db } from '../../Firebase';
+
 import React from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const CommentList = () => {
+const CommentList = ({ comment }) => {
+  console.log(comment);
   return (
     <CommentWrapper>
       <CommentLeft>
-        <CommentAutherImage />
+        <CommentAutherImage src={comment.commentAuthorAvatar} />
       </CommentLeft>
       <CommentCenter>
-        <CommentAuthor>Bohongu</CommentAuthor>
-        <CommentText>
-          orem ipsum dolor sit amet consectetur, adipisicing elit. Dolore ipsa
-          iusto, tempora quisquam vero dignissimos, adipisci optio, asperiores
-          enim quia autem aspernatur
-        </CommentText>
+        <CommentAuthor>{comment.commentAuthor}</CommentAuthor>
+        <CommentText>{comment.comment}</CommentText>
       </CommentCenter>
       <CommentRight>
         <>
-          <BsFillTrashFill style={{ marginBottom: '1rem' }} />
+          <BsFillTrashFill />
         </>
       </CommentRight>
     </CommentWrapper>
@@ -43,7 +42,6 @@ const CommentLeft = styled.div`
 `;
 
 const CommentAutherImage = styled.img`
-  border: 1px solid black;
   height: 45px;
   width: 45px;
   border-radius: 50%;

@@ -1,16 +1,23 @@
 import Main from 'components/layout/Main';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TbUserCircle } from 'react-icons/tb';
 import { GoComment } from 'react-icons/go';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CommentList from 'components/comment/CommentList';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { db, storage } from '../../Firebase';
 import { BsPencilFill, BsFillTrashFill } from 'react-icons/bs';
 import { deleteObject, ref } from 'firebase/storage';
 import CommeetUpdate from './CommeetUpdate';
 import CommentForm from 'components/comment/CommentForm';
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 
 const CommeetList = ({ commeet }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -18,6 +25,7 @@ const CommeetList = ({ commeet }) => {
   const [showComment, setShowComment] = useState(false);
   const dbRef = doc(db, 'commeets', `${commeet.id}`);
   const isOwner = commeet.authorId === userInfo.uid;
+  const [rightComments, setRightComments] = useState([]);
   const onToggleComment = () => {
     setShowComment((prev) => !prev);
   };
@@ -32,6 +40,22 @@ const CommeetList = ({ commeet }) => {
   const onUpdateClick = () => {
     setShowUpdateForm(true);
   };
+
+  useEffect(() => {
+    const q = query(
+      collection(db, 'comments'),
+      where('commeetId', '==', commeet.id),
+      orderBy('commentCreatedAt', 'desc'),
+    );
+
+    onSnapshot(q, (querySnapshot) => {
+      const updateComment = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRightComments(updateComment);
+    });
+  }, [commeet.id]);
 
   return (
     <>
@@ -79,7 +103,9 @@ const CommeetList = ({ commeet }) => {
           </CommentButton>
           {showComment ? (
             <>
-              <CommentList />
+              {rightComments.map((comment) => (
+                <CommentList key={comment.id} comment={comment} />
+              ))}
               <CommentForm commeetId={commeet.id} />
             </>
           ) : null}
