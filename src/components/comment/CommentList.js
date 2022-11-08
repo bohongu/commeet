@@ -1,8 +1,22 @@
+import { db } from '../../Firebase';
+import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const CommentList = ({ comment }) => {
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const isOwner = comment.commentAuthorId === userInfo.uid;
+  const commentDbRef = doc(db, 'comments', `${comment.id}`);
+  const deleteCommentHandler = async () => {
+    // eslint-disable-next-line no-restricted-globals
+    const ok = confirm('댓글을 삭제하기겠습니까?');
+    if (ok) {
+      await deleteDoc(commentDbRef);
+    }
+  };
+
   return (
     <CommentWrapper>
       <CommentLeft>
@@ -13,9 +27,11 @@ const CommentList = ({ comment }) => {
         <CommentText>{comment.comment}</CommentText>
       </CommentCenter>
       <CommentRight>
-        <>
-          <BsFillTrashFill />
-        </>
+        {isOwner ? (
+          <>
+            <BsFillTrashFill onClick={deleteCommentHandler} />
+          </>
+        ) : null}
       </CommentRight>
     </CommentWrapper>
   );
