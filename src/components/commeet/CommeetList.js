@@ -215,4 +215,7 @@ const CommentButton = styled.div`
 
 const CommentSection = styled.div`
   grid-area: comment;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

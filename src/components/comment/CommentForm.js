@@ -1,9 +1,12 @@
 import { db } from '../../Firebase';
 import { addDoc, collection } from 'firebase/firestore';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { BsPencilSquare } from 'react-icons/bs';
 
 const CommentForm = ({ commeetId }) => {
+  const focusRef = useRef();
   const userInfo = useSelector((state) => state.user.userInfo);
   const [comment, setComment] = useState('');
   const onChange = (event) => {
@@ -21,14 +24,43 @@ const CommentForm = ({ commeetId }) => {
       commentAuthorId: userInfo.uid,
     });
     setComment('');
+    focusRef.current.focus();
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" value={comment} onChange={onChange} />
-      <button>작성</button>
-    </form>
+    <CommentFormWrapper onSubmit={onSubmit}>
+      <input type="text" value={comment} onChange={onChange} ref={focusRef} />
+      <button>
+        <BsPencilSquare />
+      </button>
+    </CommentFormWrapper>
   );
 };
 
 export default CommentForm;
+
+const CommentFormWrapper = styled.form`
+  display: flex;
+  justify-content: space-between;
+  width: 40rem;
+  height: 2.25rem;
+  margin: 8px 0;
+  margin-top: 13px;
+  input {
+    font-size: 14px;
+    padding-left: 5px;
+    width: 37rem;
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    background: none;
+    border: 1px solid ${(props) => props.theme.textColor};
+    color: ${(props) => props.theme.textColor};
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+  }
+`;

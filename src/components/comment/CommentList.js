@@ -23,7 +23,10 @@ const CommentList = ({ comment }) => {
         <CommentAutherImage src={comment.commentAuthorAvatar} />
       </CommentLeft>
       <CommentCenter>
-        <CommentAuthor>{comment.commentAuthor}</CommentAuthor>
+        <div>
+          <CommentAuthor>{comment.commentAuthor}</CommentAuthor>
+          <CommentDate>{comment.commentCreatedAt}</CommentDate>
+        </div>
         <CommentText>{comment.comment}</CommentText>
       </CommentCenter>
       <CommentRight>
@@ -43,7 +46,7 @@ const CommentWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
   grid-template-areas: 'profile content setting';
-  border: 1px solid black;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const CommentLeft = styled.div`
@@ -63,20 +66,34 @@ const CommentAutherImage = styled.img`
 const CommentCenter = styled.div`
   grid-area: content;
   padding: 0.5rem;
+  div {
+    display: flex;
+    width: auto;
+    align-items: center;
+  }
 `;
 
 const CommentAuthor = styled.div`
   font-size: 0.8rem;
-  margin-bottom: 0.5rem;
+  width: auto;
+  margin-right: 10px;
 `;
 
-const CommentText = styled.p``;
+const CommentDate = styled.div`
+  font-size: 10px;
+`;
+
+const CommentText = styled.p`
+  padding: 10px;
+  padding-left: 0px;
+`;
 
 const CommentRight = styled.div`
-  padding: 5px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   grid-area: setting;
-  font-size: 20px;
+  font-size: 15px;
+  * {
+    cursor: pointer;
+  }
 `;
