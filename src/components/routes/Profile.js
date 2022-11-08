@@ -180,6 +180,7 @@ const ProfileWrapper = styled.section`
   width: 45rem;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  background: ${(props) => props.theme.pointBgColor};
   height: 40rem;
   gap: 10px;
 `;
@@ -187,9 +188,7 @@ const ProfileWrapper = styled.section`
 const ProfileLeft = styled.div`
   display: flex;
   flex-direction: column;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  box-shadow: ${(props) => props.theme.shadowColor};
 `;
 
 const ProfileImageSection = styled.div`
@@ -284,9 +283,7 @@ const ProfileRight = styled.div`
   grid-template-rows: repeat(4, 1fr);
   overflow-y: scroll;
   gap: 3px;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  box-shadow: ${(props) => props.theme.shadowColor};
   div {
     display: flex;
     justify-content: center;

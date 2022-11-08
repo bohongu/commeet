@@ -22,8 +22,11 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    font-family: 'Permanet Marker', cursive;
     -ms-overflow-style: none;
+    color: ${(props) => props.theme.textColor};
+    button {
+      color:${(props) => props.theme.accentColor}
+    }
     }
     
     ::-webkit-scrollbar {
@@ -34,7 +37,6 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     width: 100%;
     text-decoration: none;
-    color:${(props) => props.theme.color}
   }
 
 `;

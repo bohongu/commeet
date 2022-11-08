@@ -126,7 +126,7 @@ const CommeetForm = () => {
 export default CommeetForm;
 
 export const PostHeader = styled.div`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   padding: 0.5rem;
   padding-top: 0;
   margin-bottom: 1rem;
@@ -175,6 +175,7 @@ const PostTextArea = styled.textarea`
   padding-left: 5px;
   font-size: 1.25rem;
   resize: none;
+  border: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const PostButtons = styled.div`
@@ -203,7 +204,7 @@ const PreviewImage = styled.img`
 `;
 
 const PushImage = styled.div`
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.borderColor};
   display: flex;
   justify-content: center;
   align-items: center;

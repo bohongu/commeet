@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Navigation = () => {
   return (
     <NavWrapper>
-      <div>
-        <Link to="/">Commeet</Link>
-      </div>
+      <HomeLink to="/">Commeet</HomeLink>
     </NavWrapper>
   );
 };
@@ -27,10 +25,11 @@ const NavWrapper = styled.div`
   align-items: center;
   padding: 0 10%;
   z-index: 10;
-  div {
-    font-weight: bold;
-    font-size: 3rem;
-    color: ${(props) => props.theme.textColor};
-    text-align: center;
-  }
+`;
+
+const HomeLink = styled(Link)`
+  font-weight: bold;
+  font-size: 2rem;
+  color: ${(props) => props.theme.textColor};
+  text-align: center;
 `;

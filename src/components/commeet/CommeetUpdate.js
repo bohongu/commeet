@@ -67,11 +67,11 @@ const UpdateForm = styled.form`
     font-size: 1.25rem;
     resize: none;
     margin-bottom: 1rem;
+    border: 1px solid ${(props) => props.theme.borderColor};
   }
 `;
 
 const UpdateButtons = styled.div`
-  border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: flex-end;

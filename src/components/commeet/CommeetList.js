@@ -1,16 +1,16 @@
 import Main from 'components/layout/Main';
 import React, { useEffect, useState } from 'react';
 import { TbUserCircle } from 'react-icons/tb';
-import { GoComment } from 'react-icons/go';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CommentList from 'components/comment/CommentList';
-import { deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { db, storage } from '../../Firebase';
 import { BsPencilFill, BsFillTrashFill } from 'react-icons/bs';
 import { deleteObject, ref } from 'firebase/storage';
 import CommeetUpdate from './CommeetUpdate';
 import CommentForm from 'components/comment/CommentForm';
+import { TbMessageCircle2, TbMessageCircleOff } from 'react-icons/tb';
 import {
   collection,
   onSnapshot,
@@ -87,20 +87,22 @@ const CommeetList = ({ commeet }) => {
           <CommeetRight>
             {isOwner ? (
               <>
-                <BsFillTrashFill
-                  onClick={onDeleteClick}
-                  style={{ marginBottom: '1rem' }}
-                />
+                <BsFillTrashFill onClick={onDeleteClick} />
                 <BsPencilFill onClick={onUpdateClick} />
               </>
             ) : null}
           </CommeetRight>
-          <CommentButton>
-            <GoComment
-              style={{ height: '25px', width: '25px' }}
-              onClick={onToggleComment}
-            />
-          </CommentButton>
+          <CommentButtons>
+            {!showComment ? (
+              <CommentButton>
+                <TbMessageCircle2 onClick={onToggleComment} />
+              </CommentButton>
+            ) : (
+              <CommentButton>
+                <TbMessageCircleOff onClick={onToggleComment} />
+              </CommentButton>
+            )}
+          </CommentButtons>
           {showComment ? (
             <CommentSection>
               {rightComments.map((comment) => (
@@ -128,6 +130,8 @@ const CommeetSections = styled.div`
 `;
 
 const CommeetWrapper = styled.section`
+  background: ${(props) => props.theme.pointBgColor};
+  border-radius: 15px;
   padding: 5px;
   width: 45rem;
   display: grid;
@@ -136,7 +140,6 @@ const CommeetWrapper = styled.section`
     'left center right'
     'button button button'
     'comment comment comment';
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `;
 
 const CommeetLeft = styled(CommeetSections)`
@@ -181,17 +184,33 @@ const NoImage = styled.div`
 `;
 
 const CommeetRight = styled(CommeetSections)`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  padding-top: 20px;
   grid-area: right;
-  font-size: 20px;
+  font-size: 15px;
+  * {
+    cursor: pointer;
+    width: auto;
+  }
 `;
 
-const CommentButton = styled.div`
+const CommentButtons = styled.div`
   width: 100%;
   grid-area: button;
   height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const CommentButton = styled.div`
+  font-size: 30px;
+  width: auto;
+  color: ${(props) => props.theme.textColor};
+  cursor: pointer;
 `;
 
 const CommentSection = styled.div`
