@@ -10,6 +10,8 @@ import {
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { auth } from '../../Firebase';
+import { BsGoogle, BsGithub } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const Auth = () => {
   const [inputs, setInputs] = useState({
@@ -68,6 +70,7 @@ const Auth = () => {
   };
 
   const onSocial = (event) => {
+    event.preventDefault();
     const { name } = event.target;
     let provider;
     try {
@@ -105,7 +108,6 @@ const Auth = () => {
             onChange={onChange}
             value={email}
           />
-          <ErrorMessage>{emailError}</ErrorMessage>
 
           <input
             id="password"
@@ -127,7 +129,6 @@ const Auth = () => {
                 onChange={onChange}
                 value={confirm}
               />
-              <ErrorMessage>{passwordError}</ErrorMessage>
 
               <input
                 id="nickname"
@@ -140,18 +141,23 @@ const Auth = () => {
               />
             </>
           )}
-
+          <ErrorMessage>{passwordError}</ErrorMessage>
+          <ErrorMessage>{emailError}</ErrorMessage>
           <button>{newAccount ? 'Create Account' : 'Sign In'}</button>
         </AuthInput>
-
-        <SocialLogin>
-          <button onClick={onSocial} name="google">
-            Continue with Google
-          </button>
-          <button onClick={onSocial} name="github">
-            Continue with Github
-          </button>
-        </SocialLogin>
+        {!newAccount ? (
+          <>
+            <SocialTitle>Social Account</SocialTitle>
+            <SocialLogin>
+              <SocialButton onClick={onSocial} name="google">
+                <BsGoogle />
+              </SocialButton>
+              <SocialButton onClick={onSocial} name="github">
+                <BsGithub />
+              </SocialButton>
+            </SocialLogin>
+          </>
+        ) : null}
         <AuthToggle onClick={toggleAccount}>
           {newAccount ? 'Sign In' : 'Create Account'}
         </AuthToggle>
@@ -176,12 +182,14 @@ const FormWrapper = styled.form`
 `;
 
 const AuthInput = styled.div`
-  margin: 15% 0;
+  margin-top: 15%;
+  margin-bottom: 7.5%;
   * {
     margin: 3.5% 0;
   }
   input {
     height: 35px;
+    padding-left: 5px;
   }
   button {
     height: 30px;
@@ -193,21 +201,54 @@ const ErrorMessage = styled.div`
   width: 100%;
   color: red;
   text-align: center;
+  margin-bottom: 5px;
+`;
+
+const SocialTitle = styled.div`
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 14px;
+  margin: 8px 0px;
+  ::before,
+  ::after {
+    content: '';
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 16px;
+  }
 `;
 
 const SocialLogin = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  border-top: 1px solid black;
-  padding: 7% 0;
+  padding: 7.5% 0;
   margin-bottom: 7%;
-  button {
-    width: 40%;
-  }
+`;
+
+const SocialButton = styled.button`
+  margin: 0 1.125rem;
+  font-size: 1.375rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  border: 1px solid black;
+  background-color: none;
+  padding: 5px;
+  border-radius: 50%;
 `;
 
 const AuthToggle = styled.div`
+  cursor: pointer;
   text-align: center;
+  :hover {
+    text-decoration: underline;
+  }
 `;

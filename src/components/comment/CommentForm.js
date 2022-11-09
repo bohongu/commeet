@@ -29,7 +29,14 @@ const CommentForm = ({ commeetId }) => {
 
   return (
     <CommentFormWrapper onSubmit={onSubmit}>
-      <input type="text" value={comment} onChange={onChange} ref={focusRef} />
+      <input
+        type="text"
+        value={comment}
+        onChange={onChange}
+        ref={focusRef}
+        placeholder="
+Write a comment"
+      />
       <button>
         <BsPencilSquare />
       </button>

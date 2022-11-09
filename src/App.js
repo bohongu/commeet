@@ -24,8 +24,10 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     -ms-overflow-style: none;
     color: ${(props) => props.theme.textColor};
+    font-family: Helvetica;
     button {
-      color:${(props) => props.theme.accentColor}
+      color:${(props) => props.theme.accentColor};
+      cursor: pointer;
     }
     }
     
