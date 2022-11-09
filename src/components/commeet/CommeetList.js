@@ -144,6 +144,7 @@ const CommeetWrapper = styled.section`
 
 const CommeetLeft = styled(CommeetSections)`
   grid-area: left;
+  color: ${(props) => props.theme.accentColor};
 `;
 
 const CommeetAuthorImage = styled.img`
@@ -192,6 +193,7 @@ const CommeetRight = styled(CommeetSections)`
   grid-area: right;
   font-size: 15px;
   * {
+    color: ${(props) => props.theme.accentColor};
     cursor: pointer;
     width: auto;
   }
@@ -209,7 +211,7 @@ const CommentButtons = styled.div`
 const CommentButton = styled.div`
   font-size: 30px;
   width: auto;
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.accentColor};
   cursor: pointer;
 `;
 

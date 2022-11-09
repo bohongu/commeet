@@ -46,7 +46,6 @@ const CommentWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
   grid-template-areas: 'profile content setting';
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const CommentLeft = styled.div`
@@ -94,6 +93,7 @@ const CommentRight = styled.div`
   grid-area: setting;
   font-size: 15px;
   * {
+    color: ${(props) => props.theme.accentColor};
     cursor: pointer;
   }
 `;

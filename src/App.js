@@ -23,10 +23,7 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     text-decoration: none;
     -ms-overflow-style: none;
-    color: ${(props) => props.theme.textColor};
-    font-family: Helvetica;
     button {
-      color:${(props) => props.theme.accentColor};
       cursor: pointer;
     }
     }

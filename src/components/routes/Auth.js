@@ -10,8 +10,7 @@ import {
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { auth } from '../../Firebase';
-import { BsGoogle, BsGithub } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { FaGoogle, FaGithub } from 'react-icons/fa';
 
 const Auth = () => {
   const [inputs, setInputs] = useState({
@@ -150,10 +149,10 @@ const Auth = () => {
             <SocialTitle>Social Account</SocialTitle>
             <SocialLogin>
               <SocialButton onClick={onSocial} name="google">
-                <BsGoogle />
+                <FaGoogle />
               </SocialButton>
               <SocialButton onClick={onSocial} name="github">
-                <BsGithub />
+                <FaGithub />
               </SocialButton>
             </SocialLogin>
           </>

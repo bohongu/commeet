@@ -46,7 +46,7 @@ const ModalWrapper = styled.div`
   position: fixed;
   top: 3rem;
   width: 35rem;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.pointBgColor};
   padding: 1rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);

@@ -57,6 +57,7 @@ const CommentFormWrapper = styled.form`
     font-size: 14px;
     padding-left: 5px;
     width: 37rem;
+    border: 1px solid ${(props) => props.theme.borderColor};
   }
   button {
     display: flex;
@@ -64,8 +65,8 @@ const CommentFormWrapper = styled.form`
     justify-content: center;
     width: auto;
     background: none;
-    border: 1px solid ${(props) => props.theme.textColor};
-    color: ${(props) => props.theme.textColor};
+    border: 1px solid ${(props) => props.theme.accentColor};
+    color: ${(props) => props.theme.accentColor};
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
