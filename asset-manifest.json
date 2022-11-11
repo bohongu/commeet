@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "https://bohongu.github.io/commeet/static/css/main.ff2ab191.css",
-    "main.js": "https://bohongu.github.io/commeet/static/js/main.3969f7fc.js",
+    "main.js": "https://bohongu.github.io/commeet/static/js/main.cce3799d.js",
     "index.html": "https://bohongu.github.io/commeet/index.html",
     "main.ff2ab191.css.map": "https://bohongu.github.io/commeet/static/css/main.ff2ab191.css.map",
-    "main.3969f7fc.js.map": "https://bohongu.github.io/commeet/static/js/main.3969f7fc.js.map"
+    "main.cce3799d.js.map": "https://bohongu.github.io/commeet/static/js/main.cce3799d.js.map"
   },
   "entrypoints": [
     "static/css/main.ff2ab191.css",
-    "static/js/main.3969f7fc.js"
+    "static/js/main.cce3799d.js"
   ]
 }
