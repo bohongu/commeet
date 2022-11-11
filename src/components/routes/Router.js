@@ -1,6 +1,6 @@
 import Control from 'components/layout/Control';
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Navigation from '../layout/Navigation';
 import Auth from './Auth';
 import Commeeting from './Commeeting';
@@ -12,7 +12,7 @@ const MyRouter = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       {isLoggedIn && (
         <>
           <Navigation />
