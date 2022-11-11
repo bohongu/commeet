@@ -18,7 +18,7 @@ const Control = () => {
   const navigate = useNavigate();
   const onLogout = async () => {
     // eslint-disable-next-line no-restricted-globals
-    const ok = confirm('로그아웃 고고?');
+    const ok = confirm('로그아웃 하시겠습니까?');
     if (ok) {
       await signOut(auth);
       navigate('/');

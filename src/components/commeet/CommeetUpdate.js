@@ -76,7 +76,11 @@ const UpdateButtons = styled.div`
   align-items: center;
   justify-content: flex-end;
   button {
-    width: 100px;
+    width: 70px;
     margin-left: 1rem;
+    background: ${(props) => props.theme.buttonBgColor};
+    color: ${(props) => props.theme.buttonTextColor};
+    border: none;
+    border-radius: 5px;
   }
 `;

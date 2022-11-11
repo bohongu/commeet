@@ -10,6 +10,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import reset from 'styled-reset';
 import { darkTheme, lightTheme } from 'theme';
 import Footer from 'components/layout/Footer';
+import './App.css';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -23,6 +24,8 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     text-decoration: none;
     -ms-overflow-style: none;
+    font-family: 'Humanbumsuk';
+    color: ${(props) => props.theme.textColor};
     button {
       cursor: pointer;
     }

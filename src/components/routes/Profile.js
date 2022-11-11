@@ -241,7 +241,7 @@ const UpdateForm = styled.div`
     align-items: center;
     height: 30px;
     width: 30px;
-    background: ${(props) => props.theme.btnColor};
+    background: ${(props) => props.theme.buttonBgColor};
     cursor: pointer;
   }
 `;
@@ -252,6 +252,7 @@ const UpdateInput = styled.input.attrs((props) => ({
   border: none;
   height: 30px;
   padding-left: 5px;
+  border: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const CommeetCount = styled.div`
@@ -272,7 +273,8 @@ const UpdateName = styled.button`
   height: 30px;
   border-radius: 5px;
   border: none;
-  background: ${(props) => props.theme.btnColor};
+  background: ${(props) => props.theme.buttonBgColor};
+  color: ${(props) => props.theme.buttonTextColor};
   cursor: pointer;
 `;
 

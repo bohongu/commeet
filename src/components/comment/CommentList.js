@@ -65,6 +65,7 @@ const CommentAutherImage = styled.img`
 const CommentCenter = styled.div`
   grid-area: content;
   padding: 0.5rem;
+  color: ${(props) => props.theme.textColor};
   div {
     display: flex;
     width: auto;

@@ -193,6 +193,10 @@ const PostButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background: ${(props) => props.theme.buttonBgColor};
+  color: ${(props) => props.theme.buttonTextColor};
+  border: none;
+  border-radius: 10px;
 `;
 
 const Preview = styled.div`
