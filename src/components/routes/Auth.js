@@ -23,6 +23,7 @@ const Auth = () => {
   const [newAccount, setNewAccount] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [error, setError] = useState('');
   const onChange = (event) => {
     const { name, value } = event.target;
     setInputs({
@@ -64,7 +65,7 @@ const Auth = () => {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (error) {
-      console.log(error);
+      setError(error.message);
     }
   };
 
@@ -85,7 +86,7 @@ const Auth = () => {
       }
       signInWithPopup(auth, provider);
     } catch (error) {
-      console.log(error);
+      setError(error.message);
     }
   };
 
@@ -142,6 +143,7 @@ const Auth = () => {
           )}
           <ErrorMessage>{passwordError}</ErrorMessage>
           <ErrorMessage>{emailError}</ErrorMessage>
+          <ErrorMessage>{error}</ErrorMessage>
           <button>{newAccount ? 'Create Account' : 'Sign In'}</button>
         </AuthInput>
         {!newAccount ? (
@@ -149,10 +151,12 @@ const Auth = () => {
             <SocialTitle>Social Account</SocialTitle>
             <SocialLogin>
               <SocialButton onClick={onSocial} name="google">
-                <FaGoogle />
+                Continue with Google
+                <FaGoogle style={{ fontSize: '1.125rem' }} />
               </SocialButton>
               <SocialButton onClick={onSocial} name="github">
-                <FaGithub />
+                Continue with Github{' '}
+                <FaGithub style={{ fontSize: '1.125rem' }} />
               </SocialButton>
             </SocialLogin>
           </>
@@ -233,15 +237,12 @@ const SocialLogin = styled.div`
 
 const SocialButton = styled.button`
   margin: 0 1.125rem;
-  font-size: 1.375rem;
+  font-size: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: auto;
-  border: 1px solid black;
   background-color: none;
-  padding: 5px;
-  border-radius: 50%;
 `;
 
 const AuthToggle = styled.div`
