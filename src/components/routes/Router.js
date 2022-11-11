@@ -5,6 +5,7 @@ import Navigation from '../layout/Navigation';
 import Auth from './Auth';
 import Commeeting from './Commeeting';
 import Home from './Home';
+import NotFound from './NotFound';
 import Profile from './Profile';
 
 const MyRouter = () => {
@@ -30,6 +31,7 @@ const MyRouter = () => {
         ) : (
           <Route path="/" element={<Auth />} />
         )}
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );
