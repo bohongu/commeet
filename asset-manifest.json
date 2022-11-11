@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/commeet.git/static/css/main.ff2ab191.css",
+    "main.js": "/commeet.git/static/js/main.b94aba5a.js",
+    "index.html": "/commeet.git/index.html",
+    "main.ff2ab191.css.map": "/commeet.git/static/css/main.ff2ab191.css.map",
+    "main.b94aba5a.js.map": "/commeet.git/static/js/main.b94aba5a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ff2ab191.css",
+    "static/js/main.b94aba5a.js"
+  ]
+}
