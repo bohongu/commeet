@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/commeet/static/css/main.ff2ab191.css",
-    "main.js": "/commeet/static/js/main.fd8732de.js",
+    "main.js": "/commeet/static/js/main.3586ffde.js",
     "index.html": "/commeet/index.html",
     "main.ff2ab191.css.map": "/commeet/static/css/main.ff2ab191.css.map",
-    "main.fd8732de.js.map": "/commeet/static/js/main.fd8732de.js.map"
+    "main.3586ffde.js.map": "/commeet/static/js/main.3586ffde.js.map"
   },
   "entrypoints": [
     "static/css/main.ff2ab191.css",
-    "static/js/main.fd8732de.js"
+    "static/js/main.3586ffde.js"
   ]
 }
