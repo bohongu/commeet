@@ -12,7 +12,7 @@ const MyRouter = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       {isLoggedIn && (
         <>
           <Navigation />
