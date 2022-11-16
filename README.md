@@ -1,10 +1,8 @@
-# 포트폴리오
+<img src='https://user-images.githubusercontent.com/91203029/202180085-d70075b9-f1ac-4f15-b566-1de909cb5a3c.png' width='450'/>
 
-<img src='https://user-images.githubusercontent.com/91203029/202180085-d70075b9-f1ac-4f15-b566-1de909cb5a3c.png' />
+<img src='https://user-images.githubusercontent.com/91203029/202180265-a84da78a-1ae8-4040-abce-2fe7b0ff48df.png' width='450'/>
 
-<img src='https://user-images.githubusercontent.com/91203029/202180265-a84da78a-1ae8-4040-abce-2fe7b0ff48df.png' />
-
-<img src='https://user-images.githubusercontent.com/91203029/202180206-e740744a-34b3-4489-95ac-658e6591c004.png' />
+<img src='https://user-images.githubusercontent.com/91203029/202180206-e740744a-34b3-4489-95ac-658e6591c004.png' width='450'/>
 
 ## Project Stack
 
@@ -26,7 +24,7 @@
       - 댓글의 commentAuthorId를 비교하여 삭제 보여주기
   - 네비게이션
     - 다크모드
-      - styled-components와 리덕스 활용
+      - styled-components 활용
     - 글쓰기
       - 본문, 사진 업로드
     - 프로필
