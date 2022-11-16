@@ -1,5 +1,5 @@
 <img src='https://user-images.githubusercontent.com/91203029/202180085-d70075b9-f1ac-4f15-b566-1de909cb5a3c.png' />
-<p display='flex' justify content='pace-between'>
+<p display='flex' justify-content='space-between'>
 <img src='https://user-images.githubusercontent.com/91203029/202180265-a84da78a-1ae8-4040-abce-2fe7b0ff48df.png' width='240' height='600'/>
 <img src='https://user-images.githubusercontent.com/91203029/202182331-108b4f18-6433-45ab-9e3c-134a20084714.png' width='240' height='600'/>
 <img src='https://user-images.githubusercontent.com/91203029/202180206-e740744a-34b3-4489-95ac-658e6591c004.png' width='240' height='600'/>
