@@ -1,46 +1,78 @@
-## Commeet
+# Commeet 리드미
 
-https://bohongu.github.io/commeet/
-
-<img src='https://user-images.githubusercontent.com/91203029/202180085-d70075b9-f1ac-4f15-b566-1de909cb5a3c.png' />
-<p display='flex' justify-content='space-between'>
-<img src='https://user-images.githubusercontent.com/91203029/202180265-a84da78a-1ae8-4040-abce-2fe7b0ff48df.png' width='240' height='600'/>
-<img src='https://user-images.githubusercontent.com/91203029/202182331-108b4f18-6433-45ab-9e3c-134a20084714.png' width='240' height='600'/>
-<img src='https://user-images.githubusercontent.com/91203029/202180206-e740744a-34b3-4489-95ac-658e6591c004.png' width='240' height='600'/>
+<p align=center>
+<img src='https://user-images.githubusercontent.com/91203029/218240676-207f02a4-ef23-4d72-9796-e7ff71b2aa47.png' />
 </p>
 
-## Project Stack
+> ‘**Commeet**’은 ‘오다’를 의미하는 ‘**Come**’과 ‘만나다’를 의미하는 ‘**Meet**’의 합성어입니다.<br /><br/>[https://bohongu.github.io/commeet/](https://bohongu.github.io/commeet/)
 
-- React
-- React Router v6
-- Redux
-- Redux-toolkit
-- styled-components
-- firebase
+<br />
 
 ## 기능
 
-- 로그인 시
-  - 모든 게시물 보여주기
-    - 게시물의 작성자의 프로필, 본문, 사진, 업로드 시간 출력
-    - 게시물의 authorId를 비교하여 삭제 / 수정 보여주기
-    - 댓글 보여주기
-      - 댓글 작성자의 프로필, 댓글, 업로드 시간 출력
-      - 댓글의 commentAuthorId를 비교하여 삭제 보여주기
-  - 네비게이션
-    - 다크모드
-      - styled-components 활용
-    - 글쓰기
-      - 본문, 사진 업로드
-    - 프로필
-      - 프로필 사진, 닉네임 변경
-      - 나의 총 게시물 수, 게시물 썸네일 출력
-    - 로그아웃
-- 비 로그인 시
-  - 인증 폼 보여주기
-    - 정규식을 활용하여 비밀번호에 유효성 검사 추가
-    - 구글, 깃허브 로그인
+### **인증 페이지**
+
+<p align=center>
+<img width=90% src='https://user-images.githubusercontent.com/91203029/218240686-afeb3da7-ccd3-414e-a166-bf3b7f46b727.png' />
+</p>
+
+- 로그인
+- 회원가입
+- 구글, 깃헙 로그인
+
+<br />
+
+### **메인 페이지**
+
+<p align=center>
+<img width=90% src='https://user-images.githubusercontent.com/91203029/218240706-f50324f8-10c2-4181-b77d-237dfee2569d.gif' />
+</p>
+
+- 글 목록
+- 네이게이션 ( 다크모드, 글쓰기, 프로필, 로그아웃 )
+
+<br />
+
+### **프로필 페이지**
+
+<p align=center>
+<img width=90% src='https://user-images.githubusercontent.com/91203029/218240719-d33cce2f-5d59-4675-aabd-4e8ee59400a9.png' />
+</p>
+
+- 프로필 사진, 닉네임 수정
+- 나의 게시물 목록, 총 게시물 수
+
+<br />
+
+### **글쓰기 페이지**
+
+<p align=center>
+<img width=90% src='https://user-images.githubusercontent.com/91203029/218240728-87dc19f6-beaa-4faf-98d2-678ca4f37f71.png' />
+</p>
+
+- 본문, 사진 업로드
+
+<br />
+
+### **게시글**
+
+<p align=center>
+<img width=90% src='https://user-images.githubusercontent.com/91203029/218240747-1f593d30-35dd-462c-b957-37d1615c1005.png' />
+</p>
+
+- 본인 게시글일 시 게시글 수정, 삭제
+- 댓글 작성, 본인 댓글일 시 댓글 삭제
+
+<br />
+
+## 기술스택
+
+<p align=center>
+<img width=90% src='https://user-images.githubusercontent.com/91203029/218240755-b3228217-2805-42c1-8565-0d1bc089bc8e.png' />
+</p>
+
+<br />
 
 ## 후기
 
-https://bohongu.tistory.com/8
+[https://bohongu.tistory.com/8](https://bohongu.tistory.com/8)
