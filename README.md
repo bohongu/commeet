@@ -1,5 +1,3 @@
-# Commeet 리드미
-
 <p align=center>
 <img src='https://user-images.githubusercontent.com/91203029/218240676-207f02a4-ef23-4d72-9796-e7ff71b2aa47.png' />
 </p>
